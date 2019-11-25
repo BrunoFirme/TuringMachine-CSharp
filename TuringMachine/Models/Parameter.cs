@@ -9,7 +9,7 @@ namespace TuringMachine.Models
     class Parameter
     {
 
-        public string Direction { get; set; }
+        public string Direction { get; set; } //R = RIGHT / L = LEFT
 
         public char newSymbol { get; set; }
 
@@ -23,6 +23,20 @@ namespace TuringMachine.Models
             this.newState = newState;
 
             this.newSymbol = newSymbol;
+
+        }
+
+        public Parameter(string[] parameters)
+        {
+
+            this.newSymbol = parameters[0][0];
+
+            if (parameters[1][0] == '<')
+                this.Direction = "Left";
+            else if (parameters[1][0] == '>')
+                this.Direction = "Right";
+
+            this.newState = Convert.ToInt32(parameters[2][0]);
 
         }
 

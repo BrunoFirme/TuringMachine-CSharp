@@ -13,19 +13,17 @@ namespace TuringMachine.Models
 
         private IDictionary<char, Parameter> Parameter;
 
-        public State(int Id, IDictionary<char, Parameter> Parameter)
-        {
-
-            this.Id = Id;
-
-            this.Parameter = Parameter;
-
-        }
-
         public State(int Id)
         {
 
             this.Id = Id;
+
+        }
+
+        public void SetDictionary(IDictionary<char, Parameter> Parameter)
+        {
+
+            this.Parameter = Parameter;
 
         }
 

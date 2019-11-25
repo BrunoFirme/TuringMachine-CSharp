@@ -23,8 +23,6 @@ namespace TuringMachine.Models
 
         }
 
-        
-
         public char Read()
         {
 
@@ -33,15 +31,12 @@ namespace TuringMachine.Models
 
         }
 
-
         private void Write(char newSymbol)
         {
 
             StringBuilder strBuilder = new StringBuilder(Strip);
             strBuilder[Position] = newSymbol;
             Strip = strBuilder.ToString();
-
-            Position += 1;
 
             return;
 

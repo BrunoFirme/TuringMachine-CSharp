@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,14 +44,14 @@
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.panelMachineView = new System.Windows.Forms.Panel();
-            this.olvStatesGrid = new BrightIdeasSoftware.ObjectListView();
-            this.olvState = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvSymbol1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvSymbol2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.dgvStateGrid = new System.Windows.Forms.DataGridView();
+            this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txbStrip = new System.Windows.Forms.TextBox();
+            this.howToUseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.olvStatesGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStateGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // runToolStripMenuItem
@@ -73,6 +74,7 @@
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
             this.resetToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.resetToolStripMenuItem.Text = "Reset ";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -91,6 +93,7 @@
             this.newStateToolStripMenuItem,
             this.parametersToolStripMenuItem,
             this.resetToolStripMenuItem,
+            this.howToUseToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.mtsMachineView.Location = new System.Drawing.Point(0, 0);
             this.mtsMachineView.Name = "mtsMachineView";
@@ -111,14 +114,14 @@
             // stateToolStripMenuItem
             // 
             this.stateToolStripMenuItem.Name = "stateToolStripMenuItem";
-            this.stateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stateToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.stateToolStripMenuItem.Text = "State";
             this.stateToolStripMenuItem.Click += new System.EventHandler(this.StateToolStripMenuItem_Click);
             // 
             // symbolToolStripMenuItem
             // 
             this.symbolToolStripMenuItem.Name = "symbolToolStripMenuItem";
-            this.symbolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.symbolToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.symbolToolStripMenuItem.Text = "Symbol";
             this.symbolToolStripMenuItem.Click += new System.EventHandler(this.SymbolToolStripMenuItem_Click);
             // 
@@ -194,7 +197,8 @@
             // 
             // panelMachineView
             // 
-            this.panelMachineView.Controls.Add(this.olvStatesGrid);
+            this.panelMachineView.Controls.Add(this.txbStrip);
+            this.panelMachineView.Controls.Add(this.dgvStateGrid);
             this.panelMachineView.Controls.Add(this.mtsMachineView);
             this.panelMachineView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMachineView.Location = new System.Drawing.Point(0, 31);
@@ -202,47 +206,50 @@
             this.panelMachineView.Size = new System.Drawing.Size(412, 350);
             this.panelMachineView.TabIndex = 6;
             // 
-            // olvStatesGrid
+            // dgvStateGrid
             // 
-            this.olvStatesGrid.AllColumns.Add(this.olvState);
-            this.olvStatesGrid.AllColumns.Add(this.olvSymbol1);
-            this.olvStatesGrid.AllColumns.Add(this.olvSymbol2);
-            this.olvStatesGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.olvStatesGrid.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.SingleClick;
-            this.olvStatesGrid.CellEditTabChangesRows = true;
-            this.olvStatesGrid.CellEditUseWholeCell = false;
-            this.olvStatesGrid.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvState,
-            this.olvSymbol1,
-            this.olvSymbol2});
-            this.olvStatesGrid.Cursor = System.Windows.Forms.Cursors.Default;
-            this.olvStatesGrid.Dock = System.Windows.Forms.DockStyle.Top;
-            this.olvStatesGrid.ForeColor = System.Drawing.Color.White;
-            this.olvStatesGrid.HasCollapsibleGroups = false;
-            this.olvStatesGrid.HideSelection = false;
-            this.olvStatesGrid.Location = new System.Drawing.Point(0, 24);
-            this.olvStatesGrid.MultiSelect = false;
-            this.olvStatesGrid.Name = "olvStatesGrid";
-            this.olvStatesGrid.ShowGroups = false;
-            this.olvStatesGrid.Size = new System.Drawing.Size(412, 162);
-            this.olvStatesGrid.TabIndex = 2;
-            this.olvStatesGrid.UseCompatibleStateImageBehavior = false;
-            this.olvStatesGrid.View = System.Windows.Forms.View.Details;
-            this.olvStatesGrid.CellEditFinishing += new BrightIdeasSoftware.CellEditEventHandler(this.OlvStatesGrid_CellEditFinishing);
+            this.dgvStateGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colStateId});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
+            this.dgvStateGrid.Name = "dgvStateGrid";
+            this.dgvStateGrid.RowHeadersVisible = false;
+            this.dgvStateGrid.Size = new System.Drawing.Size(412, 162);
+            this.dgvStateGrid.TabIndex = 4;
             // 
-            // olvState
+            // colStateId
             // 
-            this.olvState.AspectName = "Id";
-            this.olvState.IsEditable = false;
-            this.olvState.Text = "Estado";
+            this.colStateId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colStateId.HeaderText = "Estado";
+            this.colStateId.Name = "colStateId";
+            this.colStateId.ReadOnly = true;
+            this.colStateId.Width = 65;
             // 
-            // olvSymbol1
+            // txbStrip
             // 
-            this.olvSymbol1.Text = "*";
+            this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txbStrip.Location = new System.Drawing.Point(0, 330);
+            this.txbStrip.Name = "txbStrip";
+            this.txbStrip.Size = new System.Drawing.Size(412, 20);
+            this.txbStrip.TabIndex = 5;
             // 
-            // olvSymbol2
+            // howToUseToolStripMenuItem
             // 
-            this.olvSymbol2.Text = "_";
+            this.howToUseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.howToUseToolStripMenuItem.Name = "howToUseToolStripMenuItem";
+            this.howToUseToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.howToUseToolStripMenuItem.Text = "How To Use";
+            this.howToUseToolStripMenuItem.Click += new System.EventHandler(this.howToUseToolStripMenuItem_Click);
             // 
             // MachineView
             // 
@@ -265,7 +272,7 @@
             this.panelHeaderMachineView.PerformLayout();
             this.panelMachineView.ResumeLayout(false);
             this.panelMachineView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.olvStatesGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStateGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -283,12 +290,12 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panelMachineView;
         private System.Windows.Forms.ToolStripMenuItem newStateToolStripMenuItem;
-        private BrightIdeasSoftware.ObjectListView olvStatesGrid;
-        private BrightIdeasSoftware.OLVColumn olvState;
-        private BrightIdeasSoftware.OLVColumn olvSymbol1;
-        private BrightIdeasSoftware.OLVColumn olvSymbol2;
         private System.Windows.Forms.ToolStripMenuItem stateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem symbolToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dgvStateGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStateId;
+        private System.Windows.Forms.ToolStripMenuItem howToUseToolStripMenuItem;
+        private System.Windows.Forms.TextBox txbStrip;
     }
 }
 

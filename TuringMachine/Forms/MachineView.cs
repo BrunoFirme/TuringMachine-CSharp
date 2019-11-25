@@ -16,9 +16,16 @@ namespace TuringMachine
     public partial class MachineView : Form
     {
 
-        private List<State> StateList; 
+        public MachineView()
+        {
 
-        private List<char> SymbolList = new List<char>();
+            InitializeComponent();
+
+            initializeStateGrid();
+
+            InitializeTuringMachine();
+
+        }
 
         #region Basic form functionality.
 
@@ -51,79 +58,113 @@ namespace TuringMachine
 
         #endregion
 
-            private void BtnClose_Click(object sender, EventArgs e) => this.Close();
+            private void BtnClose_Click(object sender, EventArgs e) 
+            {              
+                
+                this.Close();
 
-            private void BtnMinimize_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
+            }
+
+            private void BtnMinimize_Click(object sender, EventArgs e)
+            {
+
+                this.WindowState = FormWindowState.Minimized;
+
+            }
+
+            //Basic Howto.
+            private void howToUseToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+
+                Interaction.MsgBox("State Command Format:\n1#/2#/3# \nWhere:\n 1# = Symbol to Write (ex: #/...)\n 2# = Direction to move in [<, >] (ex: #/>/...)\n 3# = New state ID (ex: #/>/2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1)."); 
+
+            }
+            
+        #endregion
+
+        #region Adding States/Symbols.
+
+        //Prompt to input new symbol.
+        private void SymbolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            string newSymbol = Interaction.InputBox("Symbol: ", "New Symbol", "", 100, 100);
+
+            if (newSymbol.Length > 1)
+                Interaction.MsgBox("Símbolo inválido");
+            else
+                addSymbolColumn(newSymbol);
+
+        }
+
+        //Add new symbol column.
+        private void addSymbolColumn(string newSymbol)
+        {
+
+            var newCol = new DataGridViewTextBoxColumn();
+            newCol.HeaderText = newSymbol;
+            dgvStateGrid.Columns.Add(newCol);
+
+        }
+
+        //Adds new state to the table.
+        private void StateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+
+        }
 
         #endregion
 
-        public MachineView()
+        #region Initialize/Reset States Table.
+
+        //Reset the States Table (by calling appropriate methods).
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            InitializeComponent();
-
-            SymbolList.Add('*');
-            SymbolList.Add('_');
-
+            cleanSymbols();
             initializeStateGrid();
 
         }
 
-        private void cleanCustomSymbols()
+        //Reset the SymbolList, StateList and State Table Symbol Columns, initializes them again.
+        private void initializeStateGrid()
         {
 
-            for (int index = olvStatesGrid.Columns.Count - 1; index > 2; index--)
+            cleanSymbols();
+            dgvStateGrid.Rows.Clear();
+            dgvStateGrid.Rows.Add("1");
+
+            addSymbolColumn("*");
+            addSymbolColumn("_");
+
+        }
+
+        //Removes added symbol columns from States Table.
+        private void cleanSymbols()
+        {
+
+            for (int index = dgvStateGrid.Columns.Count - 1; index > 0; index--)
             {
 
-                olvStatesGrid.Columns.Remove(olvStatesGrid.Columns[index]);
+                dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[index]);
 
             }
 
         }
 
-        private void initializeStateGrid()
-        {
+        #endregion
 
-            SymbolList.Clear();
-
-            StateList = new List<State>();
-
-            cleanCustomSymbols();
-
-            olvStatesGrid.SetObjects(StateList);
-
-            SymbolList.Add('*');
-            SymbolList.Add('_');
-
-        }
-
-        private void SymbolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            char newSymbol = Interaction.InputBox("Symbol: ", "New Symbol", "", 100, 100)[0];
-
-            if (SymbolList.Contains(newSymbol) == false && newSymbol != ' ')
-                SymbolList.Add(newSymbol);
-
-            else
-                Interaction.MsgBox("Invalid Symbol");
-          
-        }
-
-        private void StateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            StateList.Add(new State(StateList.Count + 1));
-
-            olvStatesGrid.SetObjects(StateList);
-
-        }
-
-        private void OlvStatesGrid_CellEditFinishing(object sender, CellEditEventArgs e)
+        private void InitializeTuringMachine()
         {
 
 
 
         }
+
+
+
     }
+
 }
