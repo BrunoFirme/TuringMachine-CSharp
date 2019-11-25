@@ -16,6 +16,8 @@ namespace TuringMachine
     public partial class MachineView : Form
     {
 
+        private int StripLenght = 50;
+
         public MachineView()
         {
 
@@ -24,6 +26,8 @@ namespace TuringMachine
             initializeStateGrid();
 
             InitializeTuringMachine();
+
+            setStrip();
 
         }
 
@@ -119,10 +123,19 @@ namespace TuringMachine
 
         #region Initialize/Reset States Table.
 
+        private void setStrip()
+        {
+
+            txbStrip.Text = ">";
+            txbStrip.Text = txbStrip.Text.PadRight(50, '_');
+
+        }
+
         //Reset the States Table (by calling appropriate methods).
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
+            setStrip();
             cleanSymbols();
             initializeStateGrid();
 
@@ -159,11 +172,11 @@ namespace TuringMachine
         private void InitializeTuringMachine()
         {
 
+            Head Head = new Head(txbStrip.Text, StripLenght);
+
 
 
         }
-
-
 
     }
 
