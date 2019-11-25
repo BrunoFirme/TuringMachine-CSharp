@@ -1,0 +1,13 @@
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\bin\Debug\TuringMachine.exe.config
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\bin\Debug\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\bin\Debug\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csprojAssemblyReference.cache
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.MachineView.resources
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.Properties.Resources.resources
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csproj.GenerateResource.cache
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csproj.CoreCompileInputs.cache
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\bin\Debug\ObjectListView.dll
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\bin\Debug\ObjectListView.xml
+C:\Users\bruno\Desktop\TuringMachine\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csproj.CopyComplete
