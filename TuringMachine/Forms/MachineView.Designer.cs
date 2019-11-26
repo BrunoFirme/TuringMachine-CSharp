@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSymbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deleteSymbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblCycle = new System.Windows.Forms.Label();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -85,21 +86,28 @@
             // resetToolStripMenuItem1
             // 
             this.resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
-            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.resetToolStripMenuItem1.Text = "Reset";
             this.resetToolStripMenuItem1.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.deleteRowToolStripMenuItem.Text = "Delete Row";
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
+            // 
+            // deleteSymbolToolStripMenuItem
+            // 
+            this.deleteSymbolToolStripMenuItem.Name = "deleteSymbolToolStripMenuItem";
+            this.deleteSymbolToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.deleteSymbolToolStripMenuItem.Text = "Delete Symbol";
+            this.deleteSymbolToolStripMenuItem.Click += new System.EventHandler(this.deleteSymbolToolStripMenuItem_Click);
             // 
             // parametersToolStripMenuItem
             // 
             this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
-            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.parametersToolStripMenuItem.Text = "Parameters";
             // 
             // aboutToolStripMenuItem
@@ -122,7 +130,7 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
@@ -263,6 +271,7 @@
             // 
             // panelMachineView
             // 
+            this.panelMachineView.Controls.Add(this.lblCycle);
             this.panelMachineView.Controls.Add(this.txbStrip);
             this.panelMachineView.Controls.Add(this.label1);
             this.panelMachineView.Controls.Add(this.dgvStateGrid);
@@ -301,15 +310,15 @@
             this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStateId});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
@@ -326,12 +335,16 @@
             this.colStateId.ReadOnly = true;
             this.colStateId.Width = 65;
             // 
-            // deleteSymbolToolStripMenuItem
+            // lblCycle
             // 
-            this.deleteSymbolToolStripMenuItem.Name = "deleteSymbolToolStripMenuItem";
-            this.deleteSymbolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.deleteSymbolToolStripMenuItem.Text = "Delete Symbol";
-            this.deleteSymbolToolStripMenuItem.Click += new System.EventHandler(this.deleteSymbolToolStripMenuItem_Click);
+            this.lblCycle.AutoSize = true;
+            this.lblCycle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCycle.ForeColor = System.Drawing.Color.White;
+            this.lblCycle.Location = new System.Drawing.Point(803, 432);
+            this.lblCycle.Name = "lblCycle";
+            this.lblCycle.Size = new System.Drawing.Size(68, 25);
+            this.lblCycle.TabIndex = 8;
+            this.lblCycle.Text = "Cycle:";
             // 
             // MachineView
             // 
@@ -386,6 +399,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSymbolToolStripMenuItem;
+        private System.Windows.Forms.Label lblCycle;
     }
 }
 
