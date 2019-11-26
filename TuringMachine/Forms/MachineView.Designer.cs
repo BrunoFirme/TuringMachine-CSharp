@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +55,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deleteSymbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -74,6 +75,7 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resetToolStripMenuItem1,
             this.deleteRowToolStripMenuItem,
+            this.deleteSymbolToolStripMenuItem,
             this.parametersToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
@@ -83,21 +85,21 @@
             // resetToolStripMenuItem1
             // 
             this.resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
-            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
+            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.resetToolStripMenuItem1.Text = "Reset";
             this.resetToolStripMenuItem1.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteRowToolStripMenuItem.Text = "Delete Row";
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
             // 
             // parametersToolStripMenuItem
             // 
             this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
-            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.parametersToolStripMenuItem.Text = "Parameters";
             // 
             // aboutToolStripMenuItem
@@ -120,8 +122,9 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // mtsMachineView
             // 
@@ -220,9 +223,9 @@
             this.lblProgramTitle.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lblProgramTitle.Location = new System.Drawing.Point(12, 9);
             this.lblProgramTitle.Name = "lblProgramTitle";
-            this.lblProgramTitle.Size = new System.Drawing.Size(177, 13);
+            this.lblProgramTitle.Size = new System.Drawing.Size(275, 13);
             this.lblProgramTitle.TabIndex = 2;
-            this.lblProgramTitle.Text = "Turing Machine (C#) by Bruno Firme";
+            this.lblProgramTitle.Text = "Turing Machine (C#) by Bruno Firme e Gabriel Fernandes";
             // 
             // btnMinimize
             // 
@@ -298,14 +301,15 @@
             this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStateId});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
@@ -321,6 +325,13 @@
             this.colStateId.Name = "colStateId";
             this.colStateId.ReadOnly = true;
             this.colStateId.Width = 65;
+            // 
+            // deleteSymbolToolStripMenuItem
+            // 
+            this.deleteSymbolToolStripMenuItem.Name = "deleteSymbolToolStripMenuItem";
+            this.deleteSymbolToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteSymbolToolStripMenuItem.Text = "Delete Symbol";
+            this.deleteSymbolToolStripMenuItem.Click += new System.EventHandler(this.deleteSymbolToolStripMenuItem_Click);
             // 
             // MachineView
             // 
@@ -374,6 +385,7 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSymbolToolStripMenuItem;
     }
 }
 

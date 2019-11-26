@@ -17,8 +17,6 @@ namespace TuringMachine
 	public partial class MachineView : Form
 	{
 
-		private int StripLenght = 300;
-
 		public MachineView()
 		{
 
@@ -79,12 +77,20 @@ namespace TuringMachine
 		private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 
-			Interaction.MsgBox("State Command Format:\n1#/2#/3# \nWhere:\n 1# = Symbol to Write (ex: #/...)\n 2# = Direction to move in [<, >] (ex: #/>/...)\n 3# = New state ID (ex: #/>/2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n State 0 is considered HALT.");
+			Interaction.MsgBox("State Command Format: #/#/# \nWhere:\n 1# = Symbol to Write (ex: #)\n 2# = Direction to move in [<, >] (ex: <)\n 3# = New state ID (ex: 2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n\nImportant: State 0 is HALT.");
 		}
+
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            Interaction.MsgBox("Project by Bruno Firme Crema and Gabriel Fernandes Pereira.\n\nSpecial Thanks to:\nProfessor Sergio Coral for the knowledge necessary to build this code.\nAlan Turing for his imense contribution to humankind.\n\nIcon: Turing Machine by Attilio Baghino from the Noun Project.");
+
+        }
 
 		private void RunToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 
+            dgvStateGrid.EndEdit(DataGridViewDataErrorContexts.Commit);
 			TuringMachine();
 
 		}
@@ -163,47 +169,47 @@ namespace TuringMachine
 
 				}
 
+                string[] ColumnHeaders = file.ReadLine().Split();
+
+                dgvStateGrid.Rows.Clear();
+                dgvStateGrid.Columns.Clear();
+
+                foreach (string c in ColumnHeaders)
+                {
+
+                    var newCol = new DataGridViewTextBoxColumn();
+                    newCol.HeaderText = c;
+
+                    dgvStateGrid.Columns.Add(newCol);
+
+                }
+
+                string fileRow;
+
+                while ((fileRow = file.ReadLine()) != null)
+                {
+
+                    string[] values = fileRow.Split();
+
+                    for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
+                    {
+
+                        if (values[0] != "")
+                            dgvStateGrid.Rows.Add(values);
+
+                    }
+
+                }
+
+                file.Close();
+
 			}
-
-			string[] ColumnHeaders = file.ReadLine().Split();
-
-			dgvStateGrid.Rows.Clear();
-			dgvStateGrid.Columns.Clear();
-
-			foreach (string c in ColumnHeaders)
-			{
-
-				var newCol = new DataGridViewTextBoxColumn();
-				newCol.HeaderText = c;
-
-				dgvStateGrid.Columns.Add(newCol);
-
-			}
-
-			string fileRow;
-
-			while ((fileRow = file.ReadLine()) != null)
-			{
-
-				string[] values = fileRow.Split();
-
-				for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
-				{
-
-					if (values[0] != "")
-						dgvStateGrid.Rows.Add(values);
-
-				}
-
-			}
-			file.Close();
-
 
 		}
 
 		#endregion
 
-		#region Adding States/Symbols.
+		#region Adding/Removing States/Symbols.
 
 		//Prompt to input new symbol.
 		private void SymbolToolStripMenuItem_Click(object sender, EventArgs e)
@@ -211,7 +217,7 @@ namespace TuringMachine
 
 			string newSymbol = Interaction.InputBox("Symbol: ", "New Symbol", "", 100, 100);
 
-			if (newSymbol.Length > 1)
+			if (newSymbol.Length > 1 || newSymbol.Length == 0)
 				Interaction.MsgBox("Símbolo inválido");
 			else
 				addSymbolColumn(newSymbol);
@@ -228,6 +234,27 @@ namespace TuringMachine
 
 		}
 
+        //Delete Symbol.
+        private void deleteSymbolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (dgvStateGrid.Columns.Count == 4)
+            {
+
+                return;
+
+            }
+            else
+            {
+
+                int column = dgvStateGrid.Columns.Count - 1;
+
+                dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[column]);
+
+            }
+
+        }
+
 		//Adds new state to the table.
 		private void StateToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -239,6 +266,7 @@ namespace TuringMachine
 		//Delete latest added state from table.
 		private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+
 			if (dgvStateGrid.Rows.Count == 2)
 			{
 
@@ -246,6 +274,14 @@ namespace TuringMachine
 				dgvStateGrid.Rows.Add("1");
 
 			}
+            else
+            {
+
+                int row = dgvStateGrid.Rows.Count - 2;
+
+                dgvStateGrid.Rows.Remove(dgvStateGrid.Rows[row]);
+
+            }
 
 		}
 
@@ -267,7 +303,7 @@ namespace TuringMachine
 		{
 
 			txbStrip.Text = ">";
-			txbStrip.Text = txbStrip.Text.PadRight(StripLenght, '_');
+			txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
 
 		}
 
@@ -351,7 +387,7 @@ namespace TuringMachine
 			//Initialize States, Head, CurrentState.
 			List<State> StateList = InitializeStates();           
 
-			Head Head = new Head(txbStrip.Text, StripLenght);
+			Head Head = new Head(txbStrip.Text);
 
 			int CurrentState = 1;
 
@@ -423,6 +459,7 @@ namespace TuringMachine
 		}
 
 		#endregion
+
 
 	}
 

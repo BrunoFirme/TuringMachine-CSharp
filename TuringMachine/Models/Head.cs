@@ -12,14 +12,14 @@ namespace TuringMachine.Models
         public string Strip { get; set; }
         public int Position { get; set; }       
 
-        public Head(string Strip, int striplenght)
+        public Head(string Strip)
         {
 
             Position = 0;
 
             this.Strip = Strip;
 
-            Strip.PadRight(striplenght, '_');
+            Strip.PadRight(Properties.Settings.Default.StripLenght, '_');
 
         }
 
