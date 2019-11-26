@@ -14,430 +14,416 @@ using System.IO;
 
 namespace TuringMachine
 {
-    public partial class MachineView : Form
-    {
+	public partial class MachineView : Form
+	{
 
-        private int StripLenght = 300;
+		private int StripLenght = 300;
 
-        public MachineView()
-        {
+		public MachineView()
+		{
 
-            InitializeComponent();
+			InitializeComponent();
 
-            initializeStateGrid();
+			initializeStateGrid();
 
-            setStrip();
+			setStrip();
 
-        }
+		}
 
-        #region Basic form functionality.
+		#region Basic form functionality.
 
-        #region (Snippet) Move screen around
+		#region (Snippet) Move screen around
 
-        private bool mouseDown;
-        private Point lastLocation;
+		private bool mouseDown;
+		private Point lastLocation;
 
-        private void panelHeaderMachineView_MouseDown(object sender, MouseEventArgs e)
-        {
-            mouseDown = true;
-            lastLocation = e.Location;
-        }
+		private void panelHeaderMachineView_MouseDown(object sender, MouseEventArgs e)
+		{
+			mouseDown = true;
+			lastLocation = e.Location;
+		}
 
-        private void panelHeaderMachineView_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (mouseDown)
-            {
-                this.Location = new Point(
-                    (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+		private void panelHeaderMachineView_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (mouseDown)
+			{
+				this.Location = new Point(
+					(this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
 
-                this.Update();
-            }
-        }
+				this.Update();
+			}
+		}
 
-        private void panelHeaderMachineView_MouseUp(object sender, MouseEventArgs e)
-        {
-            mouseDown = false;
-        }
+		private void panelHeaderMachineView_MouseUp(object sender, MouseEventArgs e)
+		{
+			mouseDown = false;
+		}
 
-        #endregion
+		#endregion
 
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
+		private void BtnClose_Click(object sender, EventArgs e)
+		{
 
-            this.Close();
+			this.Close();
 
-        }
+		}
 
-        private void BtnMinimize_Click(object sender, EventArgs e)
-        {
+		private void BtnMinimize_Click(object sender, EventArgs e)
+		{
 
-            this.WindowState = FormWindowState.Minimized;
+			this.WindowState = FormWindowState.Minimized;
 
-        }
+		}
 
-        //Basic Howto.
-        private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		//Basic Howto.
+		private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            Interaction.MsgBox("State Command Format:\n1#/2#/3# \nWhere:\n 1# = Symbol to Write (ex: #/...)\n 2# = Direction to move in [<, >] (ex: #/>/...)\n 3# = New state ID (ex: #/>/2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n State 0 is considered HALT.");
-        }
+			Interaction.MsgBox("State Command Format:\n1#/2#/3# \nWhere:\n 1# = Symbol to Write (ex: #/...)\n 2# = Direction to move in [<, >] (ex: #/>/...)\n 3# = New state ID (ex: #/>/2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n State 0 is considered HALT.");
+		}
 
-        private void RunToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		private void RunToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            TuringMachine();
+			TuringMachine();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Form utilities.
+		#region Form utilities.
 
-        //Save State Table 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		//Save State Table 
+		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "Text File|*.txt";
-            var result = dialog.ShowDialog();
-            if (result != DialogResult.OK)
-                return;
+			SaveFileDialog dialog = new SaveFileDialog();
+			dialog.Filter = "Text File|*.txt";
+			var result = dialog.ShowDialog();
+			if (result != DialogResult.OK)
+				return;
 
-            dgvStateGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            dgvStateGrid.SelectAll();
+			dgvStateGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+			dgvStateGrid.SelectAll();
 
-            var rowHeaders = dgvStateGrid.RowHeadersVisible;
-            dgvStateGrid.RowHeadersVisible = false;
+			var rowHeaders = dgvStateGrid.RowHeadersVisible;
+			dgvStateGrid.RowHeadersVisible = false;
 
-            string content = dgvStateGrid.GetClipboardContent().GetText();
+			string content = dgvStateGrid.GetClipboardContent().GetText();
 
-            content.Trim();
+			content.Trim();
 
-            dgvStateGrid.ClearSelection();
-            dgvStateGrid.RowHeadersVisible = rowHeaders;
+			dgvStateGrid.ClearSelection();
+			dgvStateGrid.RowHeadersVisible = rowHeaders;
 
-            System.IO.File.WriteAllText(dialog.FileName, content);
-            MessageBox.Show(@"State Table Saved Sucessfully.");
+			System.IO.File.WriteAllText(dialog.FileName, content);
+			MessageBox.Show(@"State Table Saved Sucessfully.");
 
-        }
+		}
 
-        //Load State Table 
-        private void LoadToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
+		//Load State Table 
+		private void LoadToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
 
-            System.IO.StreamReader file = null;
+			System.IO.StreamReader file = null;
 
-            Stream Stream = null;
+			Stream Stream = null;
 
-            OpenFileDialog FileBrowser = new OpenFileDialog();
+			OpenFileDialog FileBrowser = new OpenFileDialog();
 
-            FileBrowser.Title = "Open Saved File";
+			FileBrowser.Title = "Open Saved File";
 
-            FileBrowser.Filter = "TXT files|*.txt";
+			FileBrowser.Filter = "TXT files|*.txt";
 
-            FileBrowser.InitialDirectory = @"C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\Saved Files";
+			FileBrowser.InitialDirectory = @"C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\Saved Files";
 
-            if (FileBrowser.ShowDialog() == DialogResult.OK)
-            {
+			if (FileBrowser.ShowDialog() == DialogResult.OK)
+			{
 
-                try
-                {
+				try
+				{
 
-                    if ((Stream = FileBrowser.OpenFile()) != null)
-                    {
+					if ((Stream = FileBrowser.OpenFile()) != null)
+					{
 
-                        using (Stream)
-                        {
+						using (Stream)
+						{
 
-                            file = new System.IO.StreamReader(FileBrowser.FileName);
+							file = new System.IO.StreamReader(FileBrowser.FileName);
 
-                        }
+						}
 
-                    }
+					}
 
-                }
-                catch (Exception ex)
-                {
+				}
+				catch (Exception ex)
+				{
 
-                    MessageBox.Show("Error: File Not Readable." + ex.Message);
+					MessageBox.Show("Error: File Not Readable." + ex.Message);
 
-                }
+				}
 
-            }
+			}
 
-            string[] ColumnHeaders = file.ReadLine().Split();
+			string[] ColumnHeaders = file.ReadLine().Split();
 
-            dgvStateGrid.Rows.Clear();
-            dgvStateGrid.Columns.Clear();
+			dgvStateGrid.Rows.Clear();
+			dgvStateGrid.Columns.Clear();
 
-            foreach (string c in ColumnHeaders)
-            {
+			foreach (string c in ColumnHeaders)
+			{
 
-                var newCol = new DataGridViewTextBoxColumn();
-                newCol.HeaderText = c;
+				var newCol = new DataGridViewTextBoxColumn();
+				newCol.HeaderText = c;
 
-                dgvStateGrid.Columns.Add(newCol);
+				dgvStateGrid.Columns.Add(newCol);
 
-            }
+			}
 
-            string fileRow;
+			string fileRow;
 
-            while ((fileRow = file.ReadLine()) != null)
-            {
+			while ((fileRow = file.ReadLine()) != null)
+			{
 
-                string[] values = fileRow.Split();
+				string[] values = fileRow.Split();
 
-                for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
-                {
+				for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
+				{
 
-                    if (values[0] != "")
-                        dgvStateGrid.Rows.Add(values);
+					if (values[0] != "")
+						dgvStateGrid.Rows.Add(values);
 
-                }
+				}
 
-            }
-            file.Close();
+			}
+			file.Close();
 
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Adding States/Symbols.
+		#region Adding States/Symbols.
 
-        //Prompt to input new symbol.
-        private void SymbolToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		//Prompt to input new symbol.
+		private void SymbolToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            string newSymbol = Interaction.InputBox("Symbol: ", "New Symbol", "", 100, 100);
+			string newSymbol = Interaction.InputBox("Symbol: ", "New Symbol", "", 100, 100);
 
-            if (newSymbol.Length > 1)
-                Interaction.MsgBox("Símbolo inválido");
-            else
-                addSymbolColumn(newSymbol);
+			if (newSymbol.Length > 1)
+				Interaction.MsgBox("Símbolo inválido");
+			else
+				addSymbolColumn(newSymbol);
 
-        }
+		}
 
-        //Add new symbol column.
-        private void addSymbolColumn(string newSymbol)
-        {
+		//Add new symbol column.
+		private void addSymbolColumn(string newSymbol)
+		{
 
-            var newCol = new DataGridViewTextBoxColumn();
-            newCol.HeaderText = newSymbol;
-            dgvStateGrid.Columns.Add(newCol);
+			var newCol = new DataGridViewTextBoxColumn();
+			newCol.HeaderText = newSymbol;
+			dgvStateGrid.Columns.Add(newCol);
 
-        }
+		}
 
-        //Adds new state to the table.
-        private void StateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		//Adds new state to the table.
+		private void StateToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+			dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
 
-        }
+		}
 
-        //Delete latest added state from table.
-        private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dgvStateGrid.Rows.Count == 2)
-            {
+		//Delete latest added state from table.
+		private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (dgvStateGrid.Rows.Count == 2)
+			{
 
-                dgvStateGrid.Rows.Clear();
-                dgvStateGrid.Rows.Add("1");
+				dgvStateGrid.Rows.Clear();
+				dgvStateGrid.Rows.Add("1");
 
-            }
+			}
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Initialize/Reset States Table.
+		#region Initialize/Reset States Table.
 
-        //Reset the States Table (by calling appropriate methods).
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+		//Reset the States Table (by calling appropriate methods).
+		private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
-            setStrip();
-            cleanSymbols();
-            initializeStateGrid();
+			setStrip();
+			cleanSymbols();
+			initializeStateGrid();
 
-        }
+		}
 
-        private void setStrip()
-        {
+		private void setStrip()
+		{
 
-            txbStrip.Text = ">";
-            txbStrip.Text = txbStrip.Text.PadRight(StripLenght, '_');
+			txbStrip.Text = ">";
+			txbStrip.Text = txbStrip.Text.PadRight(StripLenght, '_');
 
-        }
+		}
 
-        //Reset the SymbolList, StateList and State Table Symbol Columns, initializes them again.
-        private void initializeStateGrid()
-        {
+		//Reset the SymbolList, StateList and State Table Symbol Columns, initializes them again.
+		private void initializeStateGrid()
+		{
 
-            cleanSymbols();
-            dgvStateGrid.Rows.Clear();
-            dgvStateGrid.Rows.Add("1");
+			cleanSymbols();
+			dgvStateGrid.Rows.Clear();
+			dgvStateGrid.Rows.Add("1");
 
-            addSymbolColumn(">");
-            addSymbolColumn("*");
-            addSymbolColumn("_");
+			addSymbolColumn(">");
+			addSymbolColumn("*");
+			addSymbolColumn("_");
 
-        }
+		}
 
-        //Removes added symbol columns from States Table.
-        private void cleanSymbols()
-        {
+		//Removes added symbol columns from States Table.
+		private void cleanSymbols()
+		{
 
-            for (int index = dgvStateGrid.Columns.Count - 1; index > 0; index--)
-            {
+			for (int index = dgvStateGrid.Columns.Count - 1; index > 0; index--)
+			{
 
-                dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[index]);
+				dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[index]);
 
-            }
+			}
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Run TuringMachine.
+		#region Run TuringMachine.
 
-        //Initialize the States in States Table.
-        private List<State> InitializeStates()
-        {
+		//Initialize the States in States Table.
+		private List<State> InitializeStates()
+		{
 
-            List<State> StateList = new List<State>();
+			List<State> StateList = new List<State>();
 
-            //For each state...
-            foreach (DataGridViewRow dr in dgvStateGrid.Rows)
-            {
+			//For each state...
+			foreach (DataGridViewRow dr in dgvStateGrid.Rows)
+			{
 
-                //Check if Row's State Number is null...
-                if (dgvStateGrid[0, dr.Index].Value != null)
-                {
+				//Check if Row's State Number is null...
+				if (dgvStateGrid[0, dr.Index].Value != null)
+				{
 
-                    //Creates new state with that row's id...
-                    StateList.Add(new State(Convert.ToInt32(dgvStateGrid.Rows[dr.Index].Cells[0].Value.ToString())));
+					//Creates new state with that row's id...
+					StateList.Add(new State(Convert.ToInt32(dgvStateGrid.Rows[dr.Index].Cells[0].Value.ToString())));
 
-                    IDictionary<char, Parameter> Parameters = new Dictionary<char, Parameter>();
+					IDictionary<char, Parameter> Parameters = new Dictionary<char, Parameter>();
 
-                    //For every Column...
-                    for (int index = 1; index < dgvStateGrid.Columns.Count; index++)
-                    {
+					//For every Column...
+					for (int index = 1; index < dgvStateGrid.Columns.Count; index++)
+					{
 
-                        //If has any instruction...
-                        if (dgvStateGrid[index, dr.Index].Value != null && dgvStateGrid[index, dr.Index].Value.ToString() != "")
-                            //Add instructions to new parameter and add it to the Dictionary...
-                            Parameters.Add(dgvStateGrid.Columns[index].HeaderText[0], new Parameter(dgvStateGrid[index, dr.Index].Value.ToString().Split('/')));
+						//If has any instruction...
+						if (dgvStateGrid[index, dr.Index].Value != null && dgvStateGrid[index, dr.Index].Value.ToString() != "")
+							//Add instructions to new parameter and add it to the Dictionary...
+							Parameters.Add(dgvStateGrid.Columns[index].HeaderText[0], new Parameter(dgvStateGrid[index, dr.Index].Value.ToString().Split('/')));
 
-                    }
+					}
 
-                    //Then set that state's dictionary.
-                    if (Parameters.Count > 0)
-                        StateList[dr.Index].SetDictionary(Parameters);
+					//Then set that state's dictionary.
+					if (Parameters.Count > 0)
+						StateList[dr.Index].SetDictionary(Parameters);
 
-                }
+				}
 
-            }
+			}
 
-            return StateList;
+			return StateList;
 
-        }
+		}
 
-        //Compute the Strip based on States Table.
-        private void TuringMachine()
-        {
+		//Compute the Strip based on States Table.
+		private void TuringMachine()
+		{
 
-            //Initialize States, Head, CurrentState.
-            List<State> StateList = InitializeStates();           
+			//Initialize States, Head, CurrentState.
+			List<State> StateList = InitializeStates();           
 
-            Head Head = new Head(txbStrip.Text, StripLenght);
+			Head Head = new Head(txbStrip.Text, StripLenght);
 
-            int CurrentState = 1;
+			int CurrentState = 1;
 
-            //Run machine until state is HALT (0).
-            while (CurrentState != 0)
-            {
+			//Run machine until state is HALT (0).
+			while (CurrentState != 0)
+			{
 
-                //Convert CurrentState to StateId for index (statelist starts at 0, state id's start at 1).
-                int StateId = CurrentState - 1;
+				//Convert CurrentState to StateId for index (statelist starts at 0, state id's start at 1).
+				int StateId = CurrentState - 1;
 
-                //STEP 1: READ AND SAVE THE CURRENT SYMBOL.
-                char readSymbol = Head.Read();
+				//VALIDATION 1: Check if state has response for the current position.
+				if (StateList[StateId].Parameters.ContainsKey(Head.Read()) == true)
+				{
 
-                //STEP 1.5: SAVE THE NEXT STATE.
-                int nextState = StateList[StateId].ReadDictionary(readSymbol).newState;
+					//STEP 1: READ AND SAVE THE CURRENT SYMBOL.
+					char readSymbol = Head.Read();
 
-                //VALIDATION 1: Save next position in strip.
-                int nextPosition = 0;
-                if (StateList[StateId].Parameters[readSymbol].Direction == "Right")
-                {
-                    nextPosition = Head.Position + 1;
-                }
-                else
-                {
-                    nextPosition = Head.Position - 1;
-                }
+					//STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
+					Head.Write(StateList[StateId].ReadDictionary(readSymbol).newSymbol);
 
-                //VALIDATION 1: Check if next state has a response for the char at next position (otherwise it halts).
-                if (nextState == CurrentState && StateList[StateId].Parameters.ContainsKey(Head.Strip[nextPosition]) == false)
-                {
+					//STEP 3: MOVE HEAD.POSITION.
+					Head.Move(StateList[StateId].ReadDictionary(readSymbol).Direction);
 
-                    Interaction.MsgBox("Halt: State " + CurrentState + " wont move beyond next step (State doesnt recognize next symbol");
-                    CurrentState = 0;
-                  
-                }
-                else
-                {
+					txbStrip.Text = Head.Strip;
 
-                    //STEP 2: WRITE NEW SYMBOL IN HEAD.POSITION.
-                    Head.Write(StateList[StateId].ReadDictionary(readSymbol).newSymbol);
+					//VALIDATION 2: Check if HEAD has gone off right end of tape.
+					if (Head.Position >= Head.Strip.Length)
+					{
 
-                    //STEP 3: MOVE HEAD.POSITION.
-                    Head.Move(StateList[StateId].ReadDictionary(readSymbol).Direction);
+						Interaction.MsgBox("Halt: Head has gone out of the right end of tape. Halting Problem?");
+						CurrentState = 0;
 
-                    txbStrip.Text = Head.Strip;
+					}
+					//VALIDATION 3: Check if HEAD has gone off left end of tape.
+					else if (Head.Position < 0)
+					{
 
-                    //VALIDATION 2: Check if HEAD has gone off right end of tape.
-                    if (Head.Position >= Head.Strip.Length)
-                    {
+						Interaction.MsgBox("Halt: Head has gone out of the left end of tape. Halting Problem?");
+						CurrentState = 0;
 
-                        Interaction.MsgBox("Halt: Head has gone out of the right end of tape. a Halting Problem?");
-                        CurrentState = 0;
+					}
+					//STEP 4: CHANGE STATE, UPDATE STRIP.
+					else
+					{
 
-                    }
-                    //VALIDATION 3: Check if HEAD has gone off left end of tape.
-                    else if (Head.Position < 0)
-                    {
+						CurrentState = StateList[StateId].ReadDictionary(readSymbol).newState;
 
-                        Interaction.MsgBox("Halt: Head has gone out of the left end of tape. a Halting Problem?");
-                        CurrentState = 0;
+					}
+				  
+				}
+				else
+				{
 
-                    }
-                    //STEP 4: CHANGE STATE, UPDATE STRIP.
-                    else
-                    {
+					Interaction.MsgBox("Halt: State " + CurrentState + " does not have rule for symbol " + Head.Read());
+					CurrentState = 0;
 
-                        CurrentState = nextState;
+				}
 
-                    }
+			}
 
-                }
+			//FINAL STEP: MACHINE HAS REACHED HALT STATE, PRINT STRIP AND SUCESS MESSAGE.
+			if (CurrentState == 0 && Head.Position >= 0)
+			{
 
-            }
+				Interaction.MsgBox("Turing Machine: Computation complete.");
 
-            //FINAL STEP: MACHINE HAS REACHED HALT STATE, PRINT STRIP AND SUCESS MESSAGE.
-            if (CurrentState == 0 && Head.Position >= 0)
-            {
+			}
 
-                Interaction.MsgBox("Sucess: the Machine has completed the task.");
+		}
 
-            }
+		#endregion
 
-        }
-
-        #endregion
-
-    }
+	}
 
 }
