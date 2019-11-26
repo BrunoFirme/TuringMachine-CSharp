@@ -302,6 +302,7 @@ namespace TuringMachine
 
         #region Run TuringMachine.
 
+        //Initialize the States in States Table.
         private List<State> InitializeStates()
         {
 
@@ -343,64 +344,93 @@ namespace TuringMachine
 
         }
 
+        //Compute the Strip based on States Table.
         private void TuringMachine()
         {
 
-            List<State> StateList = InitializeStates();
-
-            int CurrentState = 1;
+            //Initialize States, Head, CurrentState.
+            List<State> StateList = InitializeStates();           
 
             Head Head = new Head(txbStrip.Text, StripLenght);
 
-            while (CurrentState != 0 && Head.Position >= 0 && Head.Position < Head.Strip.Length)
+            int CurrentState = 1;
+
+            //Run machine until state is HALT (0).
+            while (CurrentState != 0)
             {
 
-                int newState = StateList[CurrentState - 1].ReadDictionary(Head.Read()).newState;
+                //Convert CurrentState to StateId for index (statelist starts at 0, state id's start at 1).
+                int StateId = CurrentState - 1;
 
+                //STEP 1: READ AND SAVE THE CURRENT SYMBOL.
                 char readSymbol = Head.Read();
 
-                if (newState == CurrentState && StateList[CurrentState - 1].Parameters.ContainsKey(Head.Strip[Head.Position + 1]) == false)
+                //STEP 1.5: SAVE THE NEXT STATE.
+                int nextState = StateList[StateId].ReadDictionary(readSymbol).newState;
+
+                //VALIDATION 1: Save next position in strip.
+                int nextPosition = 0;
+                if (StateList[StateId].Parameters[readSymbol].Direction == "Right")
+                {
+                    nextPosition = Head.Position + 1;
+                }
+                else
+                {
+                    nextPosition = Head.Position - 1;
+                }
+
+                //VALIDATION 1: Check if next state has a response for the char at next position (otherwise it halts).
+                if (nextState == CurrentState && StateList[StateId].Parameters.ContainsKey(Head.Strip[nextPosition]) == false)
                 {
 
                     Interaction.MsgBox("Halt: State " + CurrentState + " wont move beyond next step (State doesnt recognize next symbol");
-
+                    CurrentState = 0;
+                  
                 }
                 else
                 {
 
-                    Head.Write(StateList[CurrentState - 1].ReadDictionary(readSymbol).newSymbol);
+                    //STEP 2: WRITE NEW SYMBOL IN HEAD.POSITION.
+                    Head.Write(StateList[StateId].ReadDictionary(readSymbol).newSymbol);
 
-                    Head.Move(StateList[CurrentState - 1].ReadDictionary(readSymbol).Direction);
+                    //STEP 3: MOVE HEAD.POSITION.
+                    Head.Move(StateList[StateId].ReadDictionary(readSymbol).Direction);
 
+                    txbStrip.Text = Head.Strip;
+
+                    //VALIDATION 2: Check if HEAD has gone off right end of tape.
                     if (Head.Position >= Head.Strip.Length)
                     {
 
-                        txbStrip.Text = Head.Strip;
-                        Interaction.MsgBox("Error: Head has gone out of the right end of tape. Are you having a Halting Problem?");
+                        Interaction.MsgBox("Halt: Head has gone out of the right end of tape. a Halting Problem?");
+                        CurrentState = 0;
 
                     }
+                    //VALIDATION 3: Check if HEAD has gone off left end of tape.
+                    else if (Head.Position < 0)
+                    {
+
+                        Interaction.MsgBox("Halt: Head has gone out of the left end of tape. a Halting Problem?");
+                        CurrentState = 0;
+
+                    }
+                    //STEP 4: CHANGE STATE, UPDATE STRIP.
                     else
                     {
 
-                        CurrentState = newState;
-                        txbStrip.Text = Head.Strip;
-
-                    }
+                        CurrentState = nextState;
 
                     }
 
                 }
 
+            }
+
+            //FINAL STEP: MACHINE HAS REACHED HALT STATE, PRINT STRIP AND SUCESS MESSAGE.
             if (CurrentState == 0 && Head.Position >= 0)
             {
 
                 Interaction.MsgBox("Sucess: the Machine has completed the task.");
-
-            }
-            else if (CurrentState != 0 && Head.Position < 0)
-            {
-
-                Interaction.MsgBox("Error: Head has gone out of the left end of tape.");
 
             }
 
