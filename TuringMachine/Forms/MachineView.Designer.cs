@@ -29,26 +29,32 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mtsMachineView = new System.Windows.Forms.MenuStrip();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.howToUseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelHeaderMachineView = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.lblProgramTitle = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.panelMachineView = new System.Windows.Forms.Panel();
+            this.txbStrip = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txbStrip = new System.Windows.Forms.MaskedTextBox();
+            this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -59,31 +65,30 @@
             // 
             this.runToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.runToolStripMenuItem.Text = "Run";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.runToolStripMenuItem.Text = "Compute";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.RunToolStripMenuItem_Click);
             // 
-            // parametersToolStripMenuItem
+            // optionsToolStripMenuItem
             // 
-            this.parametersToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
-            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.parametersToolStripMenuItem.Text = "Parameters";
-            // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.resetToolStripMenuItem.Text = "Reset ";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetToolStripMenuItem1,
+            this.deleteRowToolStripMenuItem,
+            this.parametersToolStripMenuItem});
+            this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.optionsToolStripMenuItem.Text = "Edit";
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.instructionsToolStripMenuItem,
+            this.aboutToolStripMenuItem1});
             this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.aboutToolStripMenuItem.Text = "Help";
             // 
             // mtsMachineView
             // 
@@ -92,16 +97,39 @@
             this.mtsMachineView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.mtsMachineView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.runToolStripMenuItem,
+            this.loadToolStripMenuItem,
             this.newStateToolStripMenuItem,
-            this.parametersToolStripMenuItem,
-            this.resetToolStripMenuItem,
-            this.howToUseToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.mtsMachineView.Location = new System.Drawing.Point(0, 0);
             this.mtsMachineView.Name = "mtsMachineView";
             this.mtsMachineView.Size = new System.Drawing.Size(412, 24);
             this.mtsMachineView.Stretch = false;
             this.mtsMachineView.TabIndex = 1;
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadToolStripMenuItem1,
+            this.saveToolStripMenuItem});
+            this.loadToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.loadToolStripMenuItem.Text = "File";
+            // 
+            // loadToolStripMenuItem1
+            // 
+            this.loadToolStripMenuItem1.Name = "loadToolStripMenuItem1";
+            this.loadToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem1.Text = "Load";
+            this.loadToolStripMenuItem1.Click += new System.EventHandler(this.LoadToolStripMenuItem1_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // newStateToolStripMenuItem
             // 
@@ -116,24 +144,16 @@
             // stateToolStripMenuItem
             // 
             this.stateToolStripMenuItem.Name = "stateToolStripMenuItem";
-            this.stateToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.stateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.stateToolStripMenuItem.Text = "State";
             this.stateToolStripMenuItem.Click += new System.EventHandler(this.StateToolStripMenuItem_Click);
             // 
             // symbolToolStripMenuItem
             // 
             this.symbolToolStripMenuItem.Name = "symbolToolStripMenuItem";
-            this.symbolToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.symbolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.symbolToolStripMenuItem.Text = "Symbol";
             this.symbolToolStripMenuItem.Click += new System.EventHandler(this.SymbolToolStripMenuItem_Click);
-            // 
-            // howToUseToolStripMenuItem
-            // 
-            this.howToUseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.howToUseToolStripMenuItem.Name = "howToUseToolStripMenuItem";
-            this.howToUseToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.howToUseToolStripMenuItem.Text = "How To Use";
-            this.howToUseToolStripMenuItem.Click += new System.EventHandler(this.howToUseToolStripMenuItem_Click);
             // 
             // panelHeaderMachineView
             // 
@@ -217,6 +237,17 @@
             this.panelMachineView.Size = new System.Drawing.Size(412, 350);
             this.panelMachineView.TabIndex = 6;
             // 
+            // txbStrip
+            // 
+            this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txbStrip.Font = new System.Drawing.Font("Minion Pro", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbStrip.ForeColor = System.Drawing.Color.Black;
+            this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.txbStrip.Location = new System.Drawing.Point(0, 319);
+            this.txbStrip.Name = "txbStrip";
+            this.txbStrip.Size = new System.Drawing.Size(412, 31);
+            this.txbStrip.TabIndex = 7;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -234,14 +265,14 @@
             this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStateId});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
@@ -258,16 +289,38 @@
             this.colStateId.ReadOnly = true;
             this.colStateId.Width = 65;
             // 
-            // txbStrip
+            // instructionsToolStripMenuItem
             // 
-            this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txbStrip.Font = new System.Drawing.Font("Minion Pro", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbStrip.ForeColor = System.Drawing.Color.Black;
-            this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.txbStrip.Location = new System.Drawing.Point(0, 319);
-            this.txbStrip.Name = "txbStrip";
-            this.txbStrip.Size = new System.Drawing.Size(412, 31);
-            this.txbStrip.TabIndex = 7;
+            this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.instructionsToolStripMenuItem.Text = "Instructions";
+            this.instructionsToolStripMenuItem.Click += new System.EventHandler(this.InstructionsToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem1.Text = "About";
+            // 
+            // resetToolStripMenuItem1
+            // 
+            this.resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
+            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem1.Text = "Reset";
+            this.resetToolStripMenuItem1.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            // 
+            // deleteRowToolStripMenuItem
+            // 
+            this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteRowToolStripMenuItem.Text = "Delete Row";
+            this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
+            // 
+            // parametersToolStripMenuItem
+            // 
+            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
+            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.parametersToolStripMenuItem.Text = "Parameters";
             // 
             // MachineView
             // 
@@ -297,8 +350,7 @@
 
         #endregion
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.MenuStrip mtsMachineView;
         private System.Windows.Forms.Panel panelHeaderMachineView;
@@ -312,9 +364,16 @@
         private System.Windows.Forms.ToolStripMenuItem symbolToolStripMenuItem;
         private System.Windows.Forms.DataGridView dgvStateGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStateId;
-        private System.Windows.Forms.ToolStripMenuItem howToUseToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox txbStrip;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem instructionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
     }
 }
 

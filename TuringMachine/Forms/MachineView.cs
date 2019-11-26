@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using BrightIdeasSoftware;
 using TuringMachine.Models;
 using Microsoft.VisualBasic;
+using System.IO;
 
 namespace TuringMachine
 {
     public partial class MachineView : Form
     {
 
-        private int StripLenght = 5;
+        private int StripLenght = 300;
 
         public MachineView()
         {
@@ -75,17 +76,128 @@ namespace TuringMachine
         }
 
         //Basic Howto.
-        private void howToUseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             Interaction.MsgBox("State Command Format:\n1#/2#/3# \nWhere:\n 1# = Symbol to Write (ex: #/...)\n 2# = Direction to move in [<, >] (ex: #/>/...)\n 3# = New state ID (ex: #/>/2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n State 0 is considered HALT.");
-
         }
 
         private void RunToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
             TuringMachine();
+
+        }
+
+        #endregion
+
+        #region Form utilities.
+
+        //Save State Table 
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.Filter = "Text File|*.txt";
+            var result = dialog.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
+
+            dgvStateGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dgvStateGrid.SelectAll();
+
+            var rowHeaders = dgvStateGrid.RowHeadersVisible;
+            dgvStateGrid.RowHeadersVisible = false;
+
+            string content = dgvStateGrid.GetClipboardContent().GetText();
+
+            content.Trim();
+
+            dgvStateGrid.ClearSelection();
+            dgvStateGrid.RowHeadersVisible = rowHeaders;
+
+            System.IO.File.WriteAllText(dialog.FileName, content);
+            MessageBox.Show(@"State Table Saved Sucessfully.");
+
+        }
+
+        //Load State Table 
+        private void LoadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            System.IO.StreamReader file = null;
+
+            Stream Stream = null;
+
+            OpenFileDialog FileBrowser = new OpenFileDialog();
+
+            FileBrowser.Title = "Open Saved File";
+
+            FileBrowser.Filter = "TXT files|*.txt";
+
+            FileBrowser.InitialDirectory = @"C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\Saved Files";
+
+            if (FileBrowser.ShowDialog() == DialogResult.OK)
+            {
+
+                try
+                {
+
+                    if ((Stream = FileBrowser.OpenFile()) != null)
+                    {
+
+                        using (Stream)
+                        {
+
+                            file = new System.IO.StreamReader(FileBrowser.FileName);
+
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Error: File Not Readable." + ex.Message);
+
+                }
+
+            }
+
+            string[] ColumnHeaders = file.ReadLine().Split();
+
+            dgvStateGrid.Rows.Clear();
+            dgvStateGrid.Columns.Clear();
+
+            foreach (string c in ColumnHeaders)
+            {
+
+                var newCol = new DataGridViewTextBoxColumn();
+                newCol.HeaderText = c;
+
+                dgvStateGrid.Columns.Add(newCol);
+
+            }
+
+            string fileRow;
+
+            while ((fileRow = file.ReadLine()) != null)
+            {
+
+                string[] values = fileRow.Split();
+
+                for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
+                {
+
+                    if(values[0] != "")
+                    dgvStateGrid.Rows.Add(values);
+
+                }
+
+            }
+            file.Close();
+
 
         }
 
@@ -120,21 +232,26 @@ namespace TuringMachine
         private void StateToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+                dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+
+        }
+
+        //Delete latest added state from table.
+        private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvStateGrid.Rows.Count == 2)
+            {
+
+                dgvStateGrid.Rows.Clear();
+                dgvStateGrid.Rows.Add("1");
+
+            }           
 
         }
 
         #endregion
 
         #region Initialize/Reset States Table.
-
-        private void setStrip()
-        {
-
-            txbStrip.Text = "_";
-            txbStrip.Text = txbStrip.Text.PadRight(5, '_');
-
-        }
 
         //Reset the States Table (by calling appropriate methods).
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,6 +260,14 @@ namespace TuringMachine
             setStrip();
             cleanSymbols();
             initializeStateGrid();
+
+        }
+
+        private void setStrip()
+        {
+
+            txbStrip.Text = "_";
+            txbStrip.Text = txbStrip.Text.PadRight(300, '_');
 
         }
 
@@ -264,6 +389,7 @@ namespace TuringMachine
             }
 
         }
+
 
         #endregion
 
