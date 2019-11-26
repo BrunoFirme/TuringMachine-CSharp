@@ -354,6 +354,8 @@ namespace TuringMachine
             while (CurrentState != 0 && Head.Position >= 0 && Head.Position < Head.Strip.Length)
             {
 
+                int newState = StateList[CurrentState - 1].ReadDictionary(Head.Read()).newState;
+
                 Head.Write(StateList[CurrentState - 1].ReadDictionary(Head.Read()).newSymbol);
 
                 Head.Move(StateList[CurrentState - 1].ReadDictionary(Head.Read()).Direction);
@@ -368,7 +370,7 @@ namespace TuringMachine
                 else
                 {
 
-                    CurrentState = StateList[CurrentState - 1].ReadDictionary(Head.Read()).newState;
+                    CurrentState = newState;
                     txbStrip.Text = Head.Strip;
 
                 }
