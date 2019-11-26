@@ -38,17 +38,17 @@
             this.newStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.symbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.howToUseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelHeaderMachineView = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.lblProgramTitle = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.panelMachineView = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txbStrip = new System.Windows.Forms.TextBox();
-            this.howToUseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txbStrip = new System.Windows.Forms.MaskedTextBox();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -61,6 +61,7 @@
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
             this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.runToolStripMenuItem.Text = "Run";
+            this.runToolStripMenuItem.Click += new System.EventHandler(this.RunToolStripMenuItem_Click);
             // 
             // parametersToolStripMenuItem
             // 
@@ -125,6 +126,14 @@
             this.symbolToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.symbolToolStripMenuItem.Text = "Symbol";
             this.symbolToolStripMenuItem.Click += new System.EventHandler(this.SymbolToolStripMenuItem_Click);
+            // 
+            // howToUseToolStripMenuItem
+            // 
+            this.howToUseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.howToUseToolStripMenuItem.Name = "howToUseToolStripMenuItem";
+            this.howToUseToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.howToUseToolStripMenuItem.Text = "How To Use";
+            this.howToUseToolStripMenuItem.Click += new System.EventHandler(this.howToUseToolStripMenuItem_Click);
             // 
             // panelHeaderMachineView
             // 
@@ -198,8 +207,8 @@
             // 
             // panelMachineView
             // 
-            this.panelMachineView.Controls.Add(this.label1);
             this.panelMachineView.Controls.Add(this.txbStrip);
+            this.panelMachineView.Controls.Add(this.label1);
             this.panelMachineView.Controls.Add(this.dgvStateGrid);
             this.panelMachineView.Controls.Add(this.mtsMachineView);
             this.panelMachineView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -207,6 +216,17 @@
             this.panelMachineView.Name = "panelMachineView";
             this.panelMachineView.Size = new System.Drawing.Size(412, 350);
             this.panelMachineView.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 292);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 25);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Strip:";
             // 
             // dgvStateGrid
             // 
@@ -223,6 +243,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
             this.dgvStateGrid.Name = "dgvStateGrid";
             this.dgvStateGrid.RowHeadersVisible = false;
@@ -240,30 +261,13 @@
             // txbStrip
             // 
             this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txbStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbStrip.Location = new System.Drawing.Point(0, 320);
+            this.txbStrip.Font = new System.Drawing.Font("Minion Pro", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbStrip.ForeColor = System.Drawing.Color.Black;
+            this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.txbStrip.Location = new System.Drawing.Point(0, 319);
             this.txbStrip.Name = "txbStrip";
-            this.txbStrip.Size = new System.Drawing.Size(412, 30);
-            this.txbStrip.TabIndex = 5;
-            // 
-            // howToUseToolStripMenuItem
-            // 
-            this.howToUseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.howToUseToolStripMenuItem.Name = "howToUseToolStripMenuItem";
-            this.howToUseToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
-            this.howToUseToolStripMenuItem.Text = "How To Use";
-            this.howToUseToolStripMenuItem.Click += new System.EventHandler(this.howToUseToolStripMenuItem_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 292);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 25);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Strip:";
+            this.txbStrip.Size = new System.Drawing.Size(412, 31);
+            this.txbStrip.TabIndex = 7;
             // 
             // MachineView
             // 
@@ -309,8 +313,8 @@
         private System.Windows.Forms.DataGridView dgvStateGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStateId;
         private System.Windows.Forms.ToolStripMenuItem howToUseToolStripMenuItem;
-        private System.Windows.Forms.TextBox txbStrip;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MaskedTextBox txbStrip;
     }
 }
 

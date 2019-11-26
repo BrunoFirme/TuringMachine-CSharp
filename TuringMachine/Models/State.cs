@@ -11,7 +11,7 @@ namespace TuringMachine.Models
 
         public int Id { get; set; }
 
-        private IDictionary<char, Parameter> Parameter;
+        private IDictionary<char, Parameter> Parameters;
 
         public State(int Id)
         {
@@ -23,7 +23,14 @@ namespace TuringMachine.Models
         public void SetDictionary(IDictionary<char, Parameter> Parameter)
         {
 
-            this.Parameter = Parameter;
+            this.Parameters = Parameter;
+
+        }
+
+        public Parameter ReadDictionary(char currentSymbol)
+        {
+
+            return Parameters[currentSymbol];
 
         }
 

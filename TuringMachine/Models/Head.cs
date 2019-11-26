@@ -31,12 +31,24 @@ namespace TuringMachine.Models
 
         }
 
-        private void Write(char newSymbol)
+        public void Write(char newSymbol)
         {
 
             StringBuilder strBuilder = new StringBuilder(Strip);
             strBuilder[Position] = newSymbol;
             Strip = strBuilder.ToString();
+
+            return;
+
+        }
+
+        public void Move(string Direction)
+        {
+
+            if (Direction == "Right")
+                Position++;
+            if (Direction == "Left")
+                Position--;
 
             return;
 

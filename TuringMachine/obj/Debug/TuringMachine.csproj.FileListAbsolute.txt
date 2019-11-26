@@ -22,3 +22,16 @@ C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachin
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Debug\TuringMachine.pdb
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Debug\ObjectListView.dll
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Debug\ObjectListView.xml
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.csprojAssemblyReference.cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.MachineView.resources
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.Properties.Resources.resources
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.csproj.GenerateResource.cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.csproj.CoreCompileInputs.cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Debug\TuringMachine.exe.config
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Debug\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Debug\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Debug\ObjectListView.dll
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Debug\ObjectListView.xml
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Debug\TuringMachine.csproj.CopyComplete

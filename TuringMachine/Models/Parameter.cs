@@ -36,7 +36,7 @@ namespace TuringMachine.Models
             else if (parameters[1][0] == '>')
                 this.Direction = "Right";
 
-            this.newState = Convert.ToInt32(parameters[2][0]);
+            this.newState = Convert.ToInt32(parameters[2]);
 
         }
 
