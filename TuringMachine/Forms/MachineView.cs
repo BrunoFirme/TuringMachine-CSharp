@@ -32,7 +32,7 @@ namespace TuringMachine
 
         #region Basic form functionality.
 
-        #region (Snippet) Move screen around 
+        #region (Snippet) Move screen around
 
         private bool mouseDown;
         private Point lastLocation;
@@ -190,8 +190,8 @@ namespace TuringMachine
                 for (int i = 0; i < (values.Length / ColumnHeaders.Length); i++)
                 {
 
-                    if(values[0] != "")
-                    dgvStateGrid.Rows.Add(values);
+                    if (values[0] != "")
+                        dgvStateGrid.Rows.Add(values);
 
                 }
 
@@ -232,7 +232,7 @@ namespace TuringMachine
         private void StateToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-                dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+            dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
 
         }
 
@@ -245,7 +245,7 @@ namespace TuringMachine
                 dgvStateGrid.Rows.Clear();
                 dgvStateGrid.Rows.Add("1");
 
-            }           
+            }
 
         }
 
@@ -266,8 +266,8 @@ namespace TuringMachine
         private void setStrip()
         {
 
-            txbStrip.Text = "_";
-            txbStrip.Text = txbStrip.Text.PadRight(300, '_');
+            txbStrip.Text = ">";
+            txbStrip.Text = txbStrip.Text.PadRight(StripLenght, '_');
 
         }
 
@@ -279,6 +279,7 @@ namespace TuringMachine
             dgvStateGrid.Rows.Clear();
             dgvStateGrid.Rows.Add("1");
 
+            addSymbolColumn(">");
             addSymbolColumn("*");
             addSymbolColumn("_");
 
@@ -324,7 +325,7 @@ namespace TuringMachine
                     {
 
                         //If has any instruction...
-                        if (dgvStateGrid[index, dr.Index].Value != null)
+                        if (dgvStateGrid[index, dr.Index].Value != null && dgvStateGrid[index, dr.Index].Value.ToString() != "")
                             //Add instructions to new parameter and add it to the Dictionary...
                             Parameters.Add(dgvStateGrid.Columns[index].HeaderText[0], new Parameter(dgvStateGrid[index, dr.Index].Value.ToString().Split('/')));
 
@@ -356,26 +357,39 @@ namespace TuringMachine
 
                 int newState = StateList[CurrentState - 1].ReadDictionary(Head.Read()).newState;
 
-                Head.Write(StateList[CurrentState - 1].ReadDictionary(Head.Read()).newSymbol);
+                char readSymbol = Head.Read();
 
-                Head.Move(StateList[CurrentState - 1].ReadDictionary(Head.Read()).Direction);
-
-                if (Head.Position >= Head.Strip.Length)
+                if (newState == CurrentState && StateList[CurrentState - 1].Parameters.ContainsKey(Head.Strip[Head.Position + 1]) == false)
                 {
 
-                    txbStrip.Text = Head.Strip;
-                    Interaction.MsgBox("Error: Head has gone out of the right end of tape. Are you having a Halting Problem?");
+                    Interaction.MsgBox("Halt: State " + CurrentState + " wont move beyond next step (State doesnt recognize next symbol");
 
                 }
                 else
                 {
 
-                    CurrentState = newState;
-                    txbStrip.Text = Head.Strip;
+                    Head.Write(StateList[CurrentState - 1].ReadDictionary(readSymbol).newSymbol);
+
+                    Head.Move(StateList[CurrentState - 1].ReadDictionary(readSymbol).Direction);
+
+                    if (Head.Position >= Head.Strip.Length)
+                    {
+
+                        txbStrip.Text = Head.Strip;
+                        Interaction.MsgBox("Error: Head has gone out of the right end of tape. Are you having a Halting Problem?");
+
+                    }
+                    else
+                    {
+
+                        CurrentState = newState;
+                        txbStrip.Text = Head.Strip;
+
+                    }
+
+                    }
 
                 }
-
-            }
 
             if (CurrentState == 0 && Head.Position >= 0)
             {
@@ -391,7 +405,6 @@ namespace TuringMachine
             }
 
         }
-
 
         #endregion
 

@@ -11,7 +11,7 @@ namespace TuringMachine.Models
 
         public int Id { get; set; }
 
-        private IDictionary<char, Parameter> Parameters;
+        public IDictionary<char, Parameter> Parameters;
 
         public State(int Id)
         {
