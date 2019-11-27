@@ -129,14 +129,13 @@ namespace TuringMachine
 
             lblCurState.Text = "Current State: " + currentState;
 
-            mtbHead.Text = mtbHead.Text.Replace("V", " ");
             txbStrip.Text = head.Strip;
-            txbStrip.Select(head.Position, 1);
 
+            mtbHead.Text = " ";
+            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
             StringBuilder strBuilder = new StringBuilder(mtbHead.Text);
             strBuilder[head.Position] = 'V';
             mtbHead.Text = strBuilder.ToString();
-            mtbHead.Text =  mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, ' ');
 
         }
 
@@ -525,7 +524,7 @@ namespace TuringMachine
 
                         //STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
                         Head.Write(StateList[CurrentState].Parameters[readSymbol].newSymbol);
-                        
+
                         //STEP 3: MOVE HEAD.POSITION.
                         Head.Move(StateList[CurrentState].Parameters[readSymbol].Direction);
 

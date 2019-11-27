@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,12 +53,12 @@
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.panelMachineView = new System.Windows.Forms.Panel();
+            this.lblCurState = new System.Windows.Forms.Label();
             this.mtbHead = new System.Windows.Forms.MaskedTextBox();
             this.lblIterations = new System.Windows.Forms.Label();
             this.txbStrip = new System.Windows.Forms.MaskedTextBox();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblCurState = new System.Windows.Forms.Label();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -158,7 +158,7 @@
             this.aboutToolStripMenuItem});
             this.mtsMachineView.Location = new System.Drawing.Point(0, 0);
             this.mtsMachineView.Name = "mtsMachineView";
-            this.mtsMachineView.Size = new System.Drawing.Size(554, 24);
+            this.mtsMachineView.Size = new System.Drawing.Size(1225, 24);
             this.mtsMachineView.Stretch = false;
             this.mtsMachineView.TabIndex = 1;
             // 
@@ -220,7 +220,7 @@
             this.panelHeaderMachineView.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeaderMachineView.Location = new System.Drawing.Point(0, 0);
             this.panelHeaderMachineView.Name = "panelHeaderMachineView";
-            this.panelHeaderMachineView.Size = new System.Drawing.Size(554, 31);
+            this.panelHeaderMachineView.Size = new System.Drawing.Size(1225, 31);
             this.panelHeaderMachineView.TabIndex = 5;
             this.panelHeaderMachineView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeaderMachineView_MouseDown);
             this.panelHeaderMachineView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeaderMachineView_MouseMove);
@@ -232,7 +232,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label4.Location = new System.Drawing.Point(0, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(554, 2);
+            this.label4.Size = new System.Drawing.Size(1225, 2);
             this.label4.TabIndex = 38;
             this.label4.Text = "label4";
             // 
@@ -256,7 +256,7 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.ForeColor = System.Drawing.Color.White;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.Location = new System.Drawing.Point(487, 3);
+            this.btnMinimize.Location = new System.Drawing.Point(1158, 3);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(29, 23);
             this.btnMinimize.TabIndex = 1;
@@ -273,7 +273,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(522, 3);
+            this.btnClose.Location = new System.Drawing.Point(1193, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(29, 23);
             this.btnClose.TabIndex = 0;
@@ -291,8 +291,19 @@
             this.panelMachineView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMachineView.Location = new System.Drawing.Point(0, 31);
             this.panelMachineView.Name = "panelMachineView";
-            this.panelMachineView.Size = new System.Drawing.Size(554, 490);
+            this.panelMachineView.Size = new System.Drawing.Size(1225, 490);
             this.panelMachineView.TabIndex = 6;
+            // 
+            // lblCurState
+            // 
+            this.lblCurState.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblCurState.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCurState.ForeColor = System.Drawing.Color.White;
+            this.lblCurState.Location = new System.Drawing.Point(996, 4);
+            this.lblCurState.Name = "lblCurState";
+            this.lblCurState.Size = new System.Drawing.Size(106, 17);
+            this.lblCurState.TabIndex = 10;
+            this.lblCurState.Text = "Current State:";
             // 
             // mtbHead
             // 
@@ -305,7 +316,7 @@
             this.mtbHead.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.mtbHead.Location = new System.Drawing.Point(0, 430);
             this.mtbHead.Name = "mtbHead";
-            this.mtbHead.Size = new System.Drawing.Size(554, 30);
+            this.mtbHead.Size = new System.Drawing.Size(1225, 30);
             this.mtbHead.TabIndex = 9;
             this.mtbHead.Text = "V";
             // 
@@ -314,7 +325,7 @@
             this.lblIterations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblIterations.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblIterations.ForeColor = System.Drawing.Color.White;
-            this.lblIterations.Location = new System.Drawing.Point(436, 4);
+            this.lblIterations.Location = new System.Drawing.Point(1108, 4);
             this.lblIterations.Name = "lblIterations";
             this.lblIterations.Size = new System.Drawing.Size(106, 17);
             this.lblIterations.TabIndex = 8;
@@ -328,7 +339,7 @@
             this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.txbStrip.Location = new System.Drawing.Point(0, 460);
             this.txbStrip.Name = "txbStrip";
-            this.txbStrip.Size = new System.Drawing.Size(554, 30);
+            this.txbStrip.Size = new System.Drawing.Size(1225, 30);
             this.txbStrip.TabIndex = 7;
             this.txbStrip.Text = ">";
             this.txbStrip.TextChanged += new System.EventHandler(this.TxbStrip_TextChanged);
@@ -340,21 +351,21 @@
             this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStateId});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
             this.dgvStateGrid.Name = "dgvStateGrid";
             this.dgvStateGrid.RowHeadersVisible = false;
-            this.dgvStateGrid.Size = new System.Drawing.Size(554, 466);
+            this.dgvStateGrid.Size = new System.Drawing.Size(1225, 466);
             this.dgvStateGrid.TabIndex = 4;
             // 
             // colStateId
@@ -366,24 +377,13 @@
             this.colStateId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colStateId.Width = 38;
             // 
-            // lblCurState
-            // 
-            this.lblCurState.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblCurState.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblCurState.ForeColor = System.Drawing.Color.White;
-            this.lblCurState.Location = new System.Drawing.Point(324, 4);
-            this.lblCurState.Name = "lblCurState";
-            this.lblCurState.Size = new System.Drawing.Size(106, 17);
-            this.lblCurState.TabIndex = 10;
-            this.lblCurState.Text = "Current State:";
-            // 
             // MachineView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(554, 521);
+            this.ClientSize = new System.Drawing.Size(1225, 521);
             this.ControlBox = false;
             this.Controls.Add(this.panelMachineView);
             this.Controls.Add(this.panelHeaderMachineView);

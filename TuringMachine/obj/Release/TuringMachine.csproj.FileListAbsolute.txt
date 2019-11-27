@@ -7,3 +7,12 @@ C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachin
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.exe
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.pdb
 C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csprojResolveAssemblyReference.cache
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe.config
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.exe
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.pdb
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.pdb
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csprojResolveAssemblyReference.cache
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.MachineView.resources
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.Properties.Resources.resources
+C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.GenerateResource.Cache
