@@ -335,8 +335,6 @@ namespace TuringMachine
             newCol.HeaderText = newSymbol;
             dgvStateGrid.Columns.Add(newCol);
 
-
-
         }
 
         //Delete Symbol.
