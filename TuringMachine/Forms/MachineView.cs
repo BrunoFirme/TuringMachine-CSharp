@@ -15,7 +15,6 @@ namespace TuringMachine
 {
     public partial class MachineView : Form
     {
-
         public MachineView()
         {
 

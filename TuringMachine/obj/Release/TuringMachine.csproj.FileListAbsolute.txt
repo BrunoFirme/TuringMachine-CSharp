@@ -16,3 +16,12 @@ C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CS
 C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.MachineView.resources
 C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.Properties.Resources.resources
 C:\Users\bruno.crema\Desktop\TuringMachine(C#) - Bruno, Gabriel\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.GenerateResource.Cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe.config
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.MachineView.resources
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.Properties.Resources.resources
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.GenerateResource.cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.CoreCompileInputs.cache
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.exe
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.pdb
