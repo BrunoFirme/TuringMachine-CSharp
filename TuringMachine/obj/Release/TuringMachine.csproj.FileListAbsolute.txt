@@ -25,3 +25,4 @@ C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMach
 C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.CoreCompileInputs.cache
 C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.exe
 C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.pdb
+C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csprojAssemblyReference.cache

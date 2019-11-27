@@ -204,6 +204,7 @@ namespace TuringMachine
         {
 
             SaveFileDialog dialog = new SaveFileDialog();
+            dialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\Saved Files";
             dialog.Filter = "Text File|*.txt";
             var result = dialog.ShowDialog();
             if (result != DialogResult.OK)
@@ -241,7 +242,7 @@ namespace TuringMachine
 
             FileBrowser.Filter = "TXT files|*.txt";
 
-            FileBrowser.InitialDirectory = @"C:\Users\bruno\Desktop\TuringMachine-CSharp\TuringMachine\Saved Files";
+            FileBrowser.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\Saved Files";
 
             if (FileBrowser.ShowDialog() == DialogResult.OK)
             {
