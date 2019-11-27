@@ -133,8 +133,8 @@
   <data name="btnMinimize.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAACtJREFUOE9jYBgFoyEwaELg27dv/8nBcA+ANDs5OZGEQXoGmQEUhQElsQkAtFfD
-        l9E4EtgAAAAASUVORK5CYII=
+        vAAADrwBlbxySQAAAChJREFUOE9jGAWjYPCAb9++/ScHQ7VDDHByciIJD0IDyMFQ7ZQABgYAtFfDl21J
+        JawAAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="btnClose.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -143,9 +143,10 @@
   <data name="btnClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAIdJREFUOE+lk0EOgDAIBHmIR6/+/+rNT/gXZBtJaF2SWkiIibDTLaKoqlSyJMbB
-        EbDbi9NykyRQs7wsD3cdARAjbgZ5xaghAGnaCADdGzrIIG61DwCuk0YKpoAEkrnqrxDnNjihc0kdEBf/
-        AGQO81coDZGJfS5Tn9GayotUXuWlH2tJ5DuA5wPfSadZtSXsyAAAAABJRU5ErkJggg==
+        vAAADrwBlbxySQAAAJNJREFUOE+1kkEKwzAMBP2QHnPt/6+95RP5izsTHLCQG5qYLAyWpdWCwaXWOsWw
+        eYX+ssAHXuWHnMEKb0gBLqsNUoi9NlOGpIDeEEKsW0/tM4gBJ8ZhMGcOUBqgX0jLinocoDTCsajCsuL+
+        UIBGOJY9+/r8CRogLDRSCGcMcADJqKxbT+0zSAHTH2n6K99i2PyfWr7fSadZsoXOaQAAAABJRU5ErkJg
+        gg==
 </value>
   </data>
   <metadata name="panelMachineView.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

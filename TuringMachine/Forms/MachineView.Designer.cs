@@ -158,7 +158,7 @@
             this.aboutToolStripMenuItem});
             this.mtsMachineView.Location = new System.Drawing.Point(0, 0);
             this.mtsMachineView.Name = "mtsMachineView";
-            this.mtsMachineView.Size = new System.Drawing.Size(1225, 24);
+            this.mtsMachineView.Size = new System.Drawing.Size(885, 24);
             this.mtsMachineView.Stretch = false;
             this.mtsMachineView.TabIndex = 1;
             // 
@@ -220,7 +220,7 @@
             this.panelHeaderMachineView.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeaderMachineView.Location = new System.Drawing.Point(0, 0);
             this.panelHeaderMachineView.Name = "panelHeaderMachineView";
-            this.panelHeaderMachineView.Size = new System.Drawing.Size(1225, 31);
+            this.panelHeaderMachineView.Size = new System.Drawing.Size(885, 31);
             this.panelHeaderMachineView.TabIndex = 5;
             this.panelHeaderMachineView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeaderMachineView_MouseDown);
             this.panelHeaderMachineView.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeaderMachineView_MouseMove);
@@ -232,7 +232,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label4.Location = new System.Drawing.Point(0, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(1225, 2);
+            this.label4.Size = new System.Drawing.Size(885, 2);
             this.label4.TabIndex = 38;
             this.label4.Text = "label4";
             // 
@@ -256,7 +256,7 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.ForeColor = System.Drawing.Color.White;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.Location = new System.Drawing.Point(1158, 3);
+            this.btnMinimize.Location = new System.Drawing.Point(818, 3);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(29, 23);
             this.btnMinimize.TabIndex = 1;
@@ -273,7 +273,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(1193, 3);
+            this.btnClose.Location = new System.Drawing.Point(853, 3);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(29, 23);
             this.btnClose.TabIndex = 0;
@@ -291,7 +291,7 @@
             this.panelMachineView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMachineView.Location = new System.Drawing.Point(0, 31);
             this.panelMachineView.Name = "panelMachineView";
-            this.panelMachineView.Size = new System.Drawing.Size(1225, 490);
+            this.panelMachineView.Size = new System.Drawing.Size(885, 490);
             this.panelMachineView.TabIndex = 6;
             // 
             // lblCurState
@@ -316,7 +316,7 @@
             this.mtbHead.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.mtbHead.Location = new System.Drawing.Point(0, 430);
             this.mtbHead.Name = "mtbHead";
-            this.mtbHead.Size = new System.Drawing.Size(1225, 30);
+            this.mtbHead.Size = new System.Drawing.Size(885, 30);
             this.mtbHead.TabIndex = 9;
             this.mtbHead.Text = "V";
             // 
@@ -339,7 +339,7 @@
             this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.txbStrip.Location = new System.Drawing.Point(0, 460);
             this.txbStrip.Name = "txbStrip";
-            this.txbStrip.Size = new System.Drawing.Size(1225, 30);
+            this.txbStrip.Size = new System.Drawing.Size(885, 30);
             this.txbStrip.TabIndex = 7;
             this.txbStrip.Text = ">";
             this.txbStrip.TextChanged += new System.EventHandler(this.TxbStrip_TextChanged);
@@ -365,7 +365,7 @@
             this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
             this.dgvStateGrid.Name = "dgvStateGrid";
             this.dgvStateGrid.RowHeadersVisible = false;
-            this.dgvStateGrid.Size = new System.Drawing.Size(1225, 466);
+            this.dgvStateGrid.Size = new System.Drawing.Size(885, 466);
             this.dgvStateGrid.TabIndex = 4;
             // 
             // colStateId
@@ -383,7 +383,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(1225, 521);
+            this.ClientSize = new System.Drawing.Size(885, 521);
             this.ControlBox = false;
             this.Controls.Add(this.panelMachineView);
             this.Controls.Add(this.panelHeaderMachineView);
