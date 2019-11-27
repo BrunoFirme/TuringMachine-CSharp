@@ -100,13 +100,13 @@ namespace TuringMachine
         #region Form utilities.
 
         //Update cycles counter.
-        private void updateCycles(int cycles)
+        private void updateIterations(int iterations)
         {
 
-            if (cycles < 1)
-                lblCycle.Text = "Cycle: " + cycles;
+            if (iterations < 1)
+                lblIterations.Text = "Iterations: " + iterations;
             else
-                lblCycle.Text = "Cycles: " + cycles;
+                lblIterations.Text = "Iterations: " + iterations;
 
         }
 
@@ -249,7 +249,7 @@ namespace TuringMachine
         private void deleteSymbolToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            if (dgvStateGrid.Columns.Count == 4)
+            if (dgvStateGrid.Columns.Count == 3)
             {
 
                 return;
@@ -270,7 +270,19 @@ namespace TuringMachine
         private void StateToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count).ToString());
+            if (String.IsNullOrEmpty(dgvStateGrid.Rows[dgvStateGrid.Rows.Count - 2].Cells[0].Value as String))
+            {
+
+                dgvStateGrid.Rows[dgvStateGrid.Rows.Count - 2].Cells[0].Value = (dgvStateGrid.Rows.Count - 2).ToString();
+
+            }               
+            else
+            {
+
+                dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count - 1).ToString());
+
+            }
+                
 
         }
 
@@ -323,12 +335,16 @@ namespace TuringMachine
         {
 
             cleanSymbols();
+
             dgvStateGrid.Rows.Clear();
-            dgvStateGrid.Rows.Add("1");
 
             addSymbolColumn(">");
-            addSymbolColumn("*");
             addSymbolColumn("_");
+
+            dgvStateGrid.Rows.Add("0");
+
+            dgvStateGrid.Rows[0].Cells[1].Value = ">/>/1";
+            dgvStateGrid.Rows[0].Cells[2].Value = "_/</0";
 
         }
 
@@ -395,40 +411,37 @@ namespace TuringMachine
         private void TuringMachine()
         {
 
-            int cycles = 0;
+            int iterations = 0;
 
             //Initialize States, Head, CurrentState.
             List<State> StateList = InitializeStates();
 
             Head Head = new Head(txbStrip.Text);
 
-            int CurrentState = 1;
+            int CurrentState = 0;
 
-            //Run machine until state is HALT (0).
-            while (CurrentState != 0)
+            //Run machine until state is HALT (-1).
+            while (CurrentState != -1)
             {
 
                 //Update cycle counter.
-                updateCycles(cycles += 1);
-
-                //Convert CurrentState to StateId for index (statelist starts at 0, state id's start at 1).
-                int StateId = CurrentState - 1;
+                updateCycles(iterations += 1);
 
                 try
                 {
 
                     //VALIDATION 1: Check if state has response for the current position.
-                    if (StateList[StateId].Parameters.ContainsKey(Head.Strip[Head.Position]))
+                    if (StateList[CurrentState].Parameters.ContainsKey(Head.Strip[Head.Position]))
                     {
 
                         //STEP 1: READ AND SAVE THE CURRENT SYMBOL.
                         char readSymbol = Head.Read();
 
                         //STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
-                        Head.Write(StateList[StateId].ReadDictionary(readSymbol).newSymbol);
+                        Head.Write(StateList[CurrentState].ReadDictionary(readSymbol).newSymbol);
 
                         //STEP 3: MOVE HEAD.POSITION.
-                        Head.Move(StateList[StateId].ReadDictionary(readSymbol).Direction);
+                        Head.Move(StateList[CurrentState].ReadDictionary(readSymbol).Direction);
 
                         txbStrip.Text = Head.Strip;
 
@@ -437,7 +450,7 @@ namespace TuringMachine
                         {
 
                             Interaction.MsgBox("Halt: Head has gone out of the right end of tape. Halting Problem?");
-                            CurrentState = 0;
+                            CurrentState = -1;
 
                         }
                         //VALIDATION 3: Check if HEAD has gone off left end of tape.
@@ -445,21 +458,29 @@ namespace TuringMachine
                         {
 
                             Interaction.MsgBox("Halt: Head has gone out of the left end of tape. Halting Problem?");
-                            CurrentState = 0;
+                            CurrentState = -1;
 
                         }
                         //STEP 4: CHANGE STATE, UPDATE STRIP.
                         else
                         {
 
-                            CurrentState = StateList[StateId].ReadDictionary(readSymbol).newState;
+                            CurrentState = StateList[CurrentState].ReadDictionary(readSymbol).newState;
 
                         }
 
                     }
+                    else
+                    {
+
+                        Interaction.MsgBox("Halt: State " + CurrentState + " does not have rule for symbol " + Head.Read());
+                        return;
+
+                    }
+                    
 
                 }
-                catch (NullReferenceException e)
+                catch (ArgumentOutOfRangeException e)
                 {
 
                     Interaction.MsgBox("Halt: State " + CurrentState + " does not have rule for symbol " + Head.Read());
@@ -470,7 +491,7 @@ namespace TuringMachine
             }
 
             //FINAL STEP: MACHINE HAS REACHED HALT STATE, PRINT STRIP AND SUCESS MESSAGE.
-            if (CurrentState == 0 && Head.Position >= 0)
+            if (CurrentState == -1 && Head.Position >= 0)
             {
 
                 Interaction.MsgBox("Turing Machine: Computation complete.");
