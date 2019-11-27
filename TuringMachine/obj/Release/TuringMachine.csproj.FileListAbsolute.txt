@@ -1,0 +1,11 @@
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe.config
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.exe
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Release\TuringMachine.pdb
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Release\ObjectListView.dll
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\bin\Release\ObjectListView.xml
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.MachineView.resources
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.Properties.Resources.resources
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csproj.GenerateResource.Cache
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.exe
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.pdb
+C:\Users\bruno.crema\Desktop\Bruno\1. Projetos\TuringMachine-CSharp\TuringMachine\obj\Release\TuringMachine.csprojResolveAssemblyReference.cache

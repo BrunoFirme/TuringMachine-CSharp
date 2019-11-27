@@ -126,17 +126,19 @@ namespace TuringMachine
         }
 
         //Update head and strip representation.
-        private void updateVisuals(Head head)
+        private void updateVisuals(int currentState, Head head)
         {
 
-            mtbHead.Text = mtbHead.Text.Replace("V", "_");
+            lblCurState.Text = "Current State: " + currentState;
+
+            mtbHead.Text = mtbHead.Text.Replace("V", " ");
             txbStrip.Text = head.Strip;
             txbStrip.Select(head.Position, 1);
 
             StringBuilder strBuilder = new StringBuilder(mtbHead.Text);
             strBuilder[head.Position] = 'V';
             mtbHead.Text = strBuilder.ToString();
-            mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
+            mtbHead.Text =  mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, ' ');
 
         }
 
@@ -332,8 +334,11 @@ namespace TuringMachine
         {
 
             var newCol = new DataGridViewTextBoxColumn();
+            newCol.SortMode = DataGridViewColumnSortMode.NotSortable;
             newCol.HeaderText = newSymbol;
             dgvStateGrid.Columns.Add(newCol);
+
+
 
         }
 
@@ -462,7 +467,8 @@ namespace TuringMachine
                         //If has any instruction...
                         if (dgvStateGrid[index, dr.Index].Value != null && dgvStateGrid[index, dr.Index].Value.ToString() != "")
                             //Add instructions to new parameter and add it to the Dictionary...
-                            Parameters.Add(dgvStateGrid.Columns[index].HeaderText[0], new Parameter(dgvStateGrid[index, dr.Index].Value.ToString().Split('/')));
+                            Parameters.Add(dgvStateGrid.Columns[index].HeaderText[0], 
+                                new Parameter(dgvStateGrid[index, dr.Index].Value.ToString().Split('/')));
 
                     }
 
@@ -502,7 +508,7 @@ namespace TuringMachine
                 {
 
                     //VALIDATION 1: Check if state has response for the current position.
-                    if (StateList[CurrentState].Parameters.ContainsKey(Head.Strip[Head.Position]))
+                    if (StateList[CurrentState].Parameters.ContainsKey(Head.Read()))
                     {
 
                         //STEP 1: READ AND SAVE THE CURRENT SYMBOL.
@@ -515,7 +521,7 @@ namespace TuringMachine
                         Head.Move(StateList[CurrentState].ReadDictionary(readSymbol).Direction);
 
                         //VISUAL: Update Visuals
-                        updateVisuals(Head);
+                        updateVisuals(CurrentState, Head);
                         this.Update();
                         Thread.Sleep(Properties.Settings.Default.IterationDelay);
 
@@ -544,7 +550,7 @@ namespace TuringMachine
 
                         }
 
-                    }
+                    }                   
                     else
                     {
 
