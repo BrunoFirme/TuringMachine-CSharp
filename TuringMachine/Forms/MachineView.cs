@@ -30,6 +30,7 @@ namespace TuringMachine
             mtbHead.Text = "V";
             mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
 
+
         }
 
         #region Basic form functionality.
@@ -77,7 +78,6 @@ namespace TuringMachine
 
         }
 
-        //Basic Howto.
         private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -94,14 +94,73 @@ namespace TuringMachine
         private void RunToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
             dgvStateGrid.EndEdit(DataGridViewDataErrorContexts.Commit);
             TuringMachine();
+
+        }
+
+        //Filter whitespace in strip (convert to _)
+        private void TxbStrip_TextChanged(object sender, EventArgs e)
+        {
+
+
+            txbStrip.Text = txbStrip.Text.Replace(" ", "_");
+            txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
 
         }
 
         #endregion
 
         #region Form utilities.
+
+        //Update cycles counter.
+        private void updateIterations(int iterations)
+        {
+
+            if (iterations < 1)
+                lblIterations.Text = "Iterations: " + iterations;
+            else
+                lblIterations.Text = "Iterations: " + iterations;
+
+        }
+
+        //Update head and strip representation.
+        private void updateVisuals(Head head)
+        {
+
+            mtbHead.Text = mtbHead.Text.Replace("V", "_");
+            txbStrip.Text = head.Strip;
+            txbStrip.Select(head.Position, 1);
+
+            StringBuilder strBuilder = new StringBuilder(mtbHead.Text);
+            strBuilder[head.Position] = 'V';
+            mtbHead.Text = strBuilder.ToString();
+            mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
+
+        }
+
+        //Initialize Strip with StripLenght size.
+        private void setStrip()
+        {
+
+            txbStrip.Text = ">";
+            txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
+
+        }
+
+        //Reset symbol columns on States Table.
+        private void cleanSymbols()
+        {
+
+            for (int index = dgvStateGrid.Columns.Count - 1; index > 0; index--)
+            {
+
+                dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[index]);
+
+            }
+
+        }
 
         // User set Striplenght.
         private void StriplenghtToolStripMenuItem_Click(object sender, EventArgs e)
@@ -140,17 +199,6 @@ namespace TuringMachine
                 Interaction.MsgBox("Valor inválido");
 
             }
-
-        }
-
-        //Update cycles counter.
-        private void updateIterations(int iterations)
-        {
-
-            if (iterations < 1)
-                lblIterations.Text = "Iterations: " + iterations;
-            else
-                lblIterations.Text = "Iterations: " + iterations;
 
         }
 
@@ -262,29 +310,6 @@ namespace TuringMachine
 
         }
 
-        //Move head around on top of strip.
-        private void updateVisualHeadPosition(int position)
-        {
-
-            mtbHead.Text = mtbHead.Text.Replace("V", "_");
-
-            StringBuilder strBuilder = new StringBuilder(mtbHead.Text);
-            strBuilder[position] = 'V';
-            mtbHead.Text = strBuilder.ToString();
-            mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
-
-        }
-
-        //Filter whitespace in strip (convert to _)
-        private void TxbStrip_TextChanged(object sender, EventArgs e)
-        {
-
-
-            txbStrip.Text = txbStrip.Text.Replace(" ", "_");
-            txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
-
-        }
-
         #endregion
 
         #region Adding/Removing States/Symbols.
@@ -389,14 +414,6 @@ namespace TuringMachine
 
         }
 
-        private void setStrip()
-        {
-
-            txbStrip.Text = ">";
-            txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
-
-        }
-
         //Reset the SymbolList, StateList and State Table Symbol Columns, initializes them again.
         private void initializeStateGrid()
         {
@@ -412,19 +429,6 @@ namespace TuringMachine
 
             dgvStateGrid.Rows[0].Cells[1].Value = ">/>/1";
             dgvStateGrid.Rows[0].Cells[2].Value = "_/</0";
-
-        }
-
-        //Removes added symbol columns from States Table.
-        private void cleanSymbols()
-        {
-
-            for (int index = dgvStateGrid.Columns.Count - 1; index > 0; index--)
-            {
-
-                dgvStateGrid.Columns.Remove(dgvStateGrid.Columns[index]);
-
-            }
 
         }
 
@@ -477,10 +481,7 @@ namespace TuringMachine
         //Compute the Strip based on States Table.
         private void TuringMachine()
         {
-
-            mtbHead.Text = "V";
-            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
-
+         
             int iterations = 0;
 
             //Initialize States, Head, CurrentState.
@@ -509,15 +510,14 @@ namespace TuringMachine
 
                         //STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
                         Head.Write(StateList[CurrentState].ReadDictionary(readSymbol).newSymbol);
-
-                        //VISUAL: Update Strip.
-                        txbStrip.Text = Head.Strip;
-
+                        
                         //STEP 3: MOVE HEAD.POSITION.
                         Head.Move(StateList[CurrentState].ReadDictionary(readSymbol).Direction);
 
-                        //VISUAL: Update Head Placement. 
-                        updateVisualHeadPosition(Head.Position);
+                        //VISUAL: Update Visuals
+                        updateVisuals(Head);
+                        this.Update();
+                        Thread.Sleep(Properties.Settings.Default.IterationDelay);
 
                         //VALIDATION 2: Check if HEAD has gone off right end of tape.
                         if (Head.Position >= Head.Strip.Length)
