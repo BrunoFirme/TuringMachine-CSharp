@@ -17,9 +17,11 @@ namespace TuringMachine.Models
 
             Position = 0;
 
-            this.Strip = Strip;
+            Strip.Replace(" ", "_");
 
             Strip.PadRight(Properties.Settings.Default.StripLenght, '_');
+
+            this.Strip = Strip;
 
         }
 

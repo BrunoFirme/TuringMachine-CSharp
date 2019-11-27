@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MachineView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSymbolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.striplenghtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDelayTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.instructionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,10 +53,11 @@
             this.btnMinimize = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.panelMachineView = new System.Windows.Forms.Panel();
+            this.mtbHead = new System.Windows.Forms.MaskedTextBox();
+            this.lblIterations = new System.Windows.Forms.Label();
             this.txbStrip = new System.Windows.Forms.MaskedTextBox();
             this.dgvStateGrid = new System.Windows.Forms.DataGridView();
             this.colStateId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblIterations = new System.Windows.Forms.Label();
             this.mtsMachineView.SuspendLayout();
             this.panelHeaderMachineView.SuspendLayout();
             this.panelMachineView.SuspendLayout();
@@ -76,7 +78,8 @@
             this.resetToolStripMenuItem1,
             this.deleteRowToolStripMenuItem,
             this.deleteSymbolToolStripMenuItem,
-            this.parametersToolStripMenuItem});
+            this.striplenghtToolStripMenuItem,
+            this.setDelayTimeToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -85,29 +88,37 @@
             // resetToolStripMenuItem1
             // 
             this.resetToolStripMenuItem1.Name = "resetToolStripMenuItem1";
-            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.resetToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
             this.resetToolStripMenuItem1.Text = "Reset";
             this.resetToolStripMenuItem1.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.deleteRowToolStripMenuItem.Text = "Delete Row";
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.deleteRowToolStripMenuItem.Text = "Delete State";
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
             // 
             // deleteSymbolToolStripMenuItem
             // 
             this.deleteSymbolToolStripMenuItem.Name = "deleteSymbolToolStripMenuItem";
-            this.deleteSymbolToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.deleteSymbolToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.deleteSymbolToolStripMenuItem.Text = "Delete Symbol";
             this.deleteSymbolToolStripMenuItem.Click += new System.EventHandler(this.deleteSymbolToolStripMenuItem_Click);
             // 
-            // parametersToolStripMenuItem
+            // striplenghtToolStripMenuItem
             // 
-            this.parametersToolStripMenuItem.Name = "parametersToolStripMenuItem";
-            this.parametersToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.parametersToolStripMenuItem.Text = "Parameters";
+            this.striplenghtToolStripMenuItem.Name = "striplenghtToolStripMenuItem";
+            this.striplenghtToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.striplenghtToolStripMenuItem.Text = "Set Strip Lenght";
+            this.striplenghtToolStripMenuItem.Click += new System.EventHandler(this.StriplenghtToolStripMenuItem_Click);
+            // 
+            // setDelayTimeToolStripMenuItem
+            // 
+            this.setDelayTimeToolStripMenuItem.Name = "setDelayTimeToolStripMenuItem";
+            this.setDelayTimeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.setDelayTimeToolStripMenuItem.Text = "Set Iteration Delay";
+            this.setDelayTimeToolStripMenuItem.Click += new System.EventHandler(this.SetDelayTimeToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -122,14 +133,14 @@
             // instructionsToolStripMenuItem
             // 
             this.instructionsToolStripMenuItem.Name = "instructionsToolStripMenuItem";
-            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.instructionsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.instructionsToolStripMenuItem.Text = "Instructions";
             this.instructionsToolStripMenuItem.Click += new System.EventHandler(this.InstructionsToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
@@ -270,6 +281,7 @@
             // 
             // panelMachineView
             // 
+            this.panelMachineView.Controls.Add(this.mtbHead);
             this.panelMachineView.Controls.Add(this.lblIterations);
             this.panelMachineView.Controls.Add(this.txbStrip);
             this.panelMachineView.Controls.Add(this.dgvStateGrid);
@@ -280,48 +292,20 @@
             this.panelMachineView.Size = new System.Drawing.Size(554, 490);
             this.panelMachineView.TabIndex = 6;
             // 
-            // txbStrip
+            // mtbHead
             // 
-            this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txbStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txbStrip.ForeColor = System.Drawing.Color.Black;
-            this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-            this.txbStrip.Location = new System.Drawing.Point(0, 460);
-            this.txbStrip.Name = "txbStrip";
-            this.txbStrip.Size = new System.Drawing.Size(554, 30);
-            this.txbStrip.TabIndex = 7;
-            // 
-            // dgvStateGrid
-            // 
-            this.dgvStateGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvStateGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colStateId});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.NullValue = null;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
-            this.dgvStateGrid.Name = "dgvStateGrid";
-            this.dgvStateGrid.RowHeadersVisible = false;
-            this.dgvStateGrid.Size = new System.Drawing.Size(554, 405);
-            this.dgvStateGrid.TabIndex = 4;
-            // 
-            // colStateId
-            // 
-            this.colStateId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.colStateId.HeaderText = "Estado";
-            this.colStateId.Name = "colStateId";
-            this.colStateId.ReadOnly = true;
-            this.colStateId.Width = 65;
+            this.mtbHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.mtbHead.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.mtbHead.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mtbHead.Enabled = false;
+            this.mtbHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtbHead.ForeColor = System.Drawing.Color.White;
+            this.mtbHead.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.mtbHead.Location = new System.Drawing.Point(0, 437);
+            this.mtbHead.Name = "mtbHead";
+            this.mtbHead.Size = new System.Drawing.Size(554, 23);
+            this.mtbHead.TabIndex = 9;
+            this.mtbHead.Text = "_";
             // 
             // lblIterations
             // 
@@ -333,6 +317,50 @@
             this.lblIterations.Size = new System.Drawing.Size(106, 17);
             this.lblIterations.TabIndex = 8;
             this.lblIterations.Text = "Iterations:";
+            // 
+            // txbStrip
+            // 
+            this.txbStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txbStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txbStrip.ForeColor = System.Drawing.Color.Black;
+            this.txbStrip.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.txbStrip.Location = new System.Drawing.Point(0, 460);
+            this.txbStrip.Name = "txbStrip";
+            this.txbStrip.Size = new System.Drawing.Size(554, 30);
+            this.txbStrip.TabIndex = 7;
+            this.txbStrip.TextChanged += new System.EventHandler(this.TxbStrip_TextChanged);
+            // 
+            // dgvStateGrid
+            // 
+            this.dgvStateGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvStateGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvStateGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStateGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colStateId});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStateGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStateGrid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgvStateGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvStateGrid.Location = new System.Drawing.Point(0, 24);
+            this.dgvStateGrid.Name = "dgvStateGrid";
+            this.dgvStateGrid.RowHeadersVisible = false;
+            this.dgvStateGrid.Size = new System.Drawing.Size(554, 379);
+            this.dgvStateGrid.TabIndex = 4;
+            // 
+            // colStateId
+            // 
+            this.colStateId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.colStateId.HeaderText = "Estado";
+            this.colStateId.Name = "colStateId";
+            this.colStateId.ReadOnly = true;
+            this.colStateId.Width = 65;
             // 
             // MachineView
             // 
@@ -384,9 +412,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parametersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem striplenghtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSymbolToolStripMenuItem;
         private System.Windows.Forms.Label lblIterations;
+        private System.Windows.Forms.MaskedTextBox mtbHead;
+        private System.Windows.Forms.ToolStripMenuItem setDelayTimeToolStripMenuItem;
     }
 }
 

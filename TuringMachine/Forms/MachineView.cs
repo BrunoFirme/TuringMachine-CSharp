@@ -11,6 +11,7 @@ using BrightIdeasSoftware;
 using TuringMachine.Models;
 using Microsoft.VisualBasic;
 using System.IO;
+using System.Threading;
 
 namespace TuringMachine
 {
@@ -25,6 +26,9 @@ namespace TuringMachine
             initializeStateGrid();
 
             setStrip();
+
+            mtbHead.Text = "V";
+            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
 
         }
 
@@ -98,6 +102,46 @@ namespace TuringMachine
         #endregion
 
         #region Form utilities.
+
+        // User set Striplenght.
+        private void StriplenghtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                Properties.Settings.Default.StripLenght = Convert.ToInt32(Interaction.InputBox("Strip Lenght: ", "New Value", "", 100, 100));
+                setStrip();
+
+            }
+            catch (FormatException ex)
+            {
+
+                Interaction.MsgBox("Valor inválido");
+
+            }
+
+        }
+
+        // User set Delay in iteration.
+        private void SetDelayTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                Properties.Settings.Default.IterationDelay = Convert.ToInt32(Interaction.InputBox("Iteration Delay: ", "New Value", "", 100, 100));
+                setStrip();
+
+            }
+            catch (FormatException ex)
+            {
+
+                Interaction.MsgBox("Valor inválido");
+
+            }
+
+        }
 
         //Update cycles counter.
         private void updateIterations(int iterations)
@@ -218,6 +262,29 @@ namespace TuringMachine
 
         }
 
+        //Move head around on top of strip.
+        private void updateVisualHeadPosition(int position)
+        {
+
+            mtbHead.Text = mtbHead.Text.Replace("V", "_");
+
+            StringBuilder strBuilder = new StringBuilder(mtbHead.Text);
+            strBuilder[position] = 'V';
+            mtbHead.Text = strBuilder.ToString();
+            mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
+
+        }
+
+        //Filter whitespace in strip (convert to _)
+        private void TxbStrip_TextChanged(object sender, EventArgs e)
+        {
+
+
+            txbStrip.Text = txbStrip.Text.Replace(" ", "_");
+            txbStrip.Text = txbStrip.Text.PadRight(Properties.Settings.Default.StripLenght, '_');
+
+        }
+
         #endregion
 
         #region Adding/Removing States/Symbols.
@@ -275,14 +342,14 @@ namespace TuringMachine
 
                 dgvStateGrid.Rows[dgvStateGrid.Rows.Count - 2].Cells[0].Value = (dgvStateGrid.Rows.Count - 2).ToString();
 
-            }               
+            }
             else
             {
 
                 dgvStateGrid.Rows.Add((dgvStateGrid.Rows.Count - 1).ToString());
 
             }
-                
+
 
         }
 
@@ -411,6 +478,9 @@ namespace TuringMachine
         private void TuringMachine()
         {
 
+            mtbHead.Text = "V";
+            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght);
+
             int iterations = 0;
 
             //Initialize States, Head, CurrentState.
@@ -425,7 +495,7 @@ namespace TuringMachine
             {
 
                 //Update cycle counter.
-                updateCycles(iterations += 1);
+                updateIterations(iterations += 1);
 
                 try
                 {
@@ -440,10 +510,14 @@ namespace TuringMachine
                         //STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
                         Head.Write(StateList[CurrentState].ReadDictionary(readSymbol).newSymbol);
 
+                        //VISUAL: Update Strip.
+                        txbStrip.Text = Head.Strip;
+
                         //STEP 3: MOVE HEAD.POSITION.
                         Head.Move(StateList[CurrentState].ReadDictionary(readSymbol).Direction);
 
-                        txbStrip.Text = Head.Strip;
+                        //VISUAL: Update Head Placement. 
+                        updateVisualHeadPosition(Head.Position);
 
                         //VALIDATION 2: Check if HEAD has gone off right end of tape.
                         if (Head.Position >= Head.Strip.Length)
@@ -451,6 +525,7 @@ namespace TuringMachine
 
                             Interaction.MsgBox("Halt: Head has gone out of the right end of tape. Halting Problem?");
                             CurrentState = -1;
+
 
                         }
                         //VALIDATION 3: Check if HEAD has gone off left end of tape.
@@ -477,16 +552,18 @@ namespace TuringMachine
                         return;
 
                     }
-                    
 
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
 
-                    Interaction.MsgBox("Halt: State " + CurrentState + " does not have rule for symbol " + Head.Read());
+
+                    Interaction.MsgBox("Halt: State '" + CurrentState + "' does not have rule for symbol '" + Head.Read() + "'");
                     return;
 
                 }
+
+
 
             }
 
@@ -500,9 +577,10 @@ namespace TuringMachine
 
         }
 
-    }
+        #endregion
 
-    #endregion
+
+    }
 
 }
 
