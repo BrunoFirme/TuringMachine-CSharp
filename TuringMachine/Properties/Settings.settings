@@ -6,7 +6,7 @@
       <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="IterationDelay" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">500</Value>
+      <Value Profile="(Default)">150</Value>
     </Setting>
   </Settings>
 </SettingsFile>

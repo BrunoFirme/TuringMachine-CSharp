@@ -9,14 +9,10 @@ namespace TuringMachine.Models
     class State
     {
 
-        public int Id { get; set; }
-
         public IDictionary<char, Parameter> Parameters;
 
-        public State(int Id)
+        public State()
         {
-
-            this.Id = Id;
 
         }
 
@@ -24,13 +20,6 @@ namespace TuringMachine.Models
         {
 
             this.Parameters = Parameter;
-
-        }
-
-        public Parameter ReadDictionary(char currentSymbol)
-        {
-
-            return Parameters[currentSymbol];
 
         }
 

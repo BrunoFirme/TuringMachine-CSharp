@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BrightIdeasSoftware;
 using TuringMachine.Models;
 using Microsoft.VisualBasic;
 using System.IO;
@@ -81,7 +79,7 @@ namespace TuringMachine
         private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            Interaction.MsgBox("State Command Format: #/#/# \nWhere:\n 1# = Symbol to Write (ex: #)\n 2# = Direction to move in [<, >] (ex: <)\n 3# = New state ID (ex: 2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n\nImportant: State 0 is HALT.");
+            Interaction.MsgBox("State Command Format: #/#/# \nWhere:\n 1# = Symbol to Write (ex: #)\n 2# = Direction to move in [<, >] (ex: <)\n 3# = New state ID (ex: 2)\nExamples:\n @/</4 == (Write @, Move Left (<), change state to 4).\n A/>/1 == (Write A, Move Right (>), change state to 1). \n\nImportant: State -1 is HALT.");
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -192,7 +190,6 @@ namespace TuringMachine
             {
 
                 Properties.Settings.Default.IterationDelay = Convert.ToInt32(Interaction.InputBox("Iteration Delay: ", "New Value", "", 100, 100));
-                setStrip();
 
             }
             catch (FormatException ex)
@@ -391,7 +388,7 @@ namespace TuringMachine
             {
 
                 dgvStateGrid.Rows.Clear();
-                dgvStateGrid.Rows.Add("1");
+                dgvStateGrid.Rows.Add("0");
 
             }
             else
@@ -413,6 +410,10 @@ namespace TuringMachine
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            mtbHead.Text = "V";
+            mtbHead.Text = mtbHead.Text.PadRight(Properties.Settings.Default.StripLenght, ' ');
+            lblCurState.Text = "Current State: ";
+            lblIterations.Text = "Iterations: ";
             setStrip();
             cleanSymbols();
             initializeStateGrid();
@@ -456,7 +457,7 @@ namespace TuringMachine
                 {
 
                     //Creates new state with that row's id...
-                    StateList.Add(new State(Convert.ToInt32(dgvStateGrid.Rows[dr.Index].Cells[0].Value.ToString())));
+                    StateList.Add(new State());
 
                     IDictionary<char, Parameter> Parameters = new Dictionary<char, Parameter>();
 
@@ -493,6 +494,16 @@ namespace TuringMachine
             //Initialize States, Head, CurrentState.
             List<State> StateList = InitializeStates();
 
+            //VALIDATION 0: Check if there are parameters to execute in state 0.
+            if(StateList[0].Parameters == null)
+            {
+
+                Interaction.MsgBox("There are no instructions to start computation.");
+                return;
+
+            }
+                 
+
             Head Head = new Head(txbStrip.Text);
 
             int CurrentState = 0;
@@ -515,10 +526,10 @@ namespace TuringMachine
                         char readSymbol = Head.Read();
 
                         //STEP 2: WRITE NEW SYMBOL IN HEAD.STRIP[POSITION].
-                        Head.Write(StateList[CurrentState].ReadDictionary(readSymbol).newSymbol);
+                        Head.Write(StateList[CurrentState].Parameters[readSymbol].newSymbol);
                         
                         //STEP 3: MOVE HEAD.POSITION.
-                        Head.Move(StateList[CurrentState].ReadDictionary(readSymbol).Direction);
+                        Head.Move(StateList[CurrentState].Parameters[readSymbol].Direction);
 
                         //VISUAL: Update Visuals
                         updateVisuals(CurrentState, Head);
@@ -546,7 +557,7 @@ namespace TuringMachine
                         else
                         {
 
-                            CurrentState = StateList[CurrentState].ReadDictionary(readSymbol).newState;
+                            CurrentState = StateList[CurrentState].Parameters[readSymbol].newState;
 
                         }
 
@@ -589,5 +600,3 @@ namespace TuringMachine
     }
 
 }
-
-

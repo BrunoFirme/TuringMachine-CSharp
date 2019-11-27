@@ -9,22 +9,11 @@ namespace TuringMachine.Models
     class Parameter
     {
 
-        public string Direction { get; set; } //R = RIGHT / L = LEFT
+        public string Direction { get; set; } //> = RIGHT / < = LEFT
 
         public char newSymbol { get; set; }
 
         public int newState { get; set; }
-
-        public Parameter(string Direction, char newSymbol, int newState)
-        {
-
-            this.Direction = Direction;
-
-            this.newState = newState;
-
-            this.newSymbol = newSymbol;
-
-        }
 
         public Parameter(string[] parameters)
         {
@@ -37,11 +26,6 @@ namespace TuringMachine.Models
                 this.Direction = "Right";
 
             this.newState = Convert.ToInt32(parameters[2]);
-
-            if (parameters[1][0] == '<')
-                this.Direction = "Left";
-            else if (parameters[1][0] == '>')
-                this.Direction = "Right";
 
         }
 
